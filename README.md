@@ -2,7 +2,7 @@
 
 This plugin is designed to work with Twitter Bootstrap to enable declarative AJAX support.
 
-No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by added a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, bootstrap-ajax leverages server side template rendering engines to render and return HTML fragments.
+No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by adding a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, bootstrap-ajax leverages server side template rendering engines to render and return HTML fragments.
 
 ## Installation
 
