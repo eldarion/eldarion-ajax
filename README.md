@@ -4,6 +4,19 @@ This plugin is designed to work with Twitter Bootstrap to enable declarative AJA
 
 No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by added a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, bootstrap-ajax leverages server side template rendering engines to render and return HTML fragments.
 
+## Installation
+
+Copy the files in ```js/bootstrap-ajax.js``` and optionally ```vendor/spin.min.js``` to where
+you keep your web sites static media and the include them in your HTML:
+
+```
+<script src="/js/spin.min.js"></script>
+<script src="/js/bootstrap-ajax.js"></script>
+```
+
+The inclusion of ```spin.min.js``` is optional.
+
+
 ## Actions
 There are currently three actions supported:
 
