@@ -4,14 +4,14 @@ This plugin is designed to work with Twitter Bootstrap to enable declarative AJA
 
 No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by added a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, bootstrap-ajax leverages server side template rendering engines to render and return HTML fragments.
 
-### Actions
+## Actions
 There are currently three actions supported:
 
 1. ```a.click```
 2. ```form.submit```
 3. ```a.cancel```
 
-#### ```a.click```
+### ```a.click```
 Binding to the ```a``` tag's click event where the tag has the class ```ajax```:
 
 ```
@@ -25,7 +25,7 @@ In addition to the ```href``` attribute, you can add ```data-method="post"``` to
 change the default action from an HTTP GET to an HTTP POST.
 
 
-#### ```form.submit```
+### ```form.submit```
 Convert any form to an AJAX form submission quite easily by adding ```ajax``` to the
 form's class attribute:
 
@@ -38,7 +38,7 @@ will be disabled immediately, then the data in the form serialize and sent to th
 server using the ```method``` that was declared in the ```form``` tag.
 
 
-#### ```a.cancel```
+### ```a.cancel```
 Any ```a``` tag that has a ```data-cancel-closest``` attribute defined will trigger
 the cancel event handler. This simply removes from the DOM any elements found using
 the selector defined in the ```data-cancel-closest``` attribute:
@@ -50,7 +50,7 @@ the selector defined in the ```data-cancel-closest``` attribute:
 ```
 
 
-### Processing Responses
+## Processing Responses
 There are two data attributes looked for in the response JSON data:
 
 1. ```location```
@@ -77,7 +77,7 @@ multiple different blocks on the page at the same time.
 
 Best to just see some examples.
 
-#### Append
+### Append
 
 Using ```data-append``` allows you to specify that the ```data.html``` returned in the
 server response's JSON be appended to the elements found in the specified CSS selector:
@@ -90,7 +90,7 @@ server response's JSON be appended to the elements found in the specified CSS se
 </a>
 ```
 
-#### Refresh
+### Refresh
 
 Using the ```data-refresh``` attribute let's you define what elements, if selected by the
 CSS selector specified for it's value, get **_refreshed_**. Elements that are selected will
@@ -115,18 +115,18 @@ the AJAX post made as a result of clicking the button and simultaneously, the ``
 will refresh itself by fetching (GET) JSON from the url defined in ```data-refresh-url``` and
 replacing itself with the contents of ```data.html``` that is returned.
 
-#### Refresh Closest
+### Refresh Closest
 
 This works very much in the same way as ```data-refresh``` however, the uses jQuery's ```closest```
 method to interpret the selector.
 
-#### Replace
+### Replace
 
 Sometimes you want to neither refresh nor append to existing elements but you want to just replace
 the content with whatever it is that is returned from the server. This is what ```data-replace```
 is for.
 
-#### Replace Closest
+### Replace Closest
 
 This works very much in the same way as ```data-replace``` however, the uses jQuery's ```closest```
 method to interpret the selector.
@@ -151,7 +151,7 @@ It is rare that you'll add/use all of these processing methods combined like thi
 just be one or the other, however, I add them all here to illustrate the point that they are
 independently interpreted and executed.
 
-### Spinner
+## Spinner
 This is an optional include and provides support to show an activity spinner during the life of the callback.
 
 You can specify where the spinner should be placed (it defaults to the ```a.click``` or ```form.submit``` in question) by declaring ```data-spinner``` with a CSS selector. You can turn it off all together by simply specifying ```off``` as the value instead of a selector.
