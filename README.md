@@ -47,7 +47,7 @@ form's class attribute:
 ```
 
 When submitting this form, any ```input[type=submit]``` or ```button[type=submit]```
-will be disabled immediately, then the data in the form serialize and sent to the
+will be disabled immediately, then the data in the form is serialized and sent to the
 server using the ```method``` that was declared in the ```form``` tag.
 
 
