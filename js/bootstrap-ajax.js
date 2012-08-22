@@ -201,6 +201,5 @@
     $('body').on('click', 'a.ajax', Ajax.prototype.click)
     $('body').on('submit', 'form.ajax', Ajax.prototype.submit)
     $('body').on('click', 'a[data-cancel-closest]', Ajax.prototype.cancel)
-    $('body').on('click', 'a[data-cancel-closest]', Ajax.prototype.cancel)
   })
 }(window.jQuery);
