@@ -57,7 +57,7 @@ the cancel event handler. This simply removes from the DOM any elements found us
 the selector defined in the ```data-cancel-closest``` attribute:
 
 ```
-<a href="" data-cancel-closest=".edit-form" class="btn">
+<a href="#" data-cancel-closest=".edit-form" class="btn">
     Cancel
 </a>
 ```
