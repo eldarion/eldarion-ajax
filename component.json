@@ -1,0 +1,8 @@
+{
+    "name": "bootstrap-ajax",
+    "version": "0.1.0",
+    "main": ["./js/bootstrap-ajax.js", "./vendor/spin.min.js"],
+    "dependencies": {
+        "jquery": "~1.7.2"
+    }
+}
