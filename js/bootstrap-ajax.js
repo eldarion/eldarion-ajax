@@ -60,6 +60,9 @@
         },
         500: function() {
           processError($this)
+        },
+        404: function() {
+          processError($this)
         }
       }
     })
@@ -86,6 +89,9 @@
             processData(data, $this)
         },
         500: function() {
+            processError($this)
+        },
+        404: function() {
             processError($this)
         }
       }
