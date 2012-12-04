@@ -1,5 +1,5 @@
 /* ====================================================================
- * bootstrap-ajax.js v0.1.0
+ * bootstrap-ajax.js v0.2.0
  * ====================================================================
  * Copyright (c) 2012, Eldarion, Inc.
  * All rights reserved.
@@ -176,6 +176,12 @@
             $el.closest($(value)).replaceWith(data.html)
           })
         })
+      }
+    }
+    
+    if (data.fragments) {
+      for (var selector in data.fragments) {
+        $(selector).replaceWith(data.fragments[selector])
       }
     }
   }

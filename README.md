@@ -69,18 +69,30 @@ the selector defined in the ```data-cancel-closest``` attribute:
 
 
 ## Processing Responses
-There are two data attributes looked for in the response JSON data:
+There are three data attributes looked for in the response JSON data:
 
 1. ```location```
 2. ```html```
+3. ```fragments```
 
 If ```location``` is found in the response JSON payload, it is expected to be a URL
 and the browser will be immediately redirected to that location. If, on the other hand
 it is not present, then the processing rules below will be processed based on
 what attributes are defined.
 
-There are five different ways that you can declare a response without a ```location```
-directive be processed:
+If you have a ```fragments``` hash defined, it should contain a list of key/value
+pairs where the keys are the selectors to content that will be replaced, and the
+values are the server-side rendered HTML content that will replace the elements
+that match the selection.
+
+You can define both ```html``` to be processed by the declaritive rules defined
+below and the ```fragements``` at the same time. This gives you the ability to
+for example replace the form you submited with ```html``` content while at the
+same time updating multiple bits of content on the page without having to
+refresh them.
+
+There are five different ways that you can declare an ```html``` response
+without a ```location``` directive be processed:
 
 1. Append
 2. Refresh
