@@ -159,6 +159,7 @@
       var replace_selector = $el.attr('data-replace')
         , replace_closest_selector = $el.attr('data-replace-closest')
         , append_selector = $el.attr('data-append')
+        , prepend_selector = $el.attr('data-prepend')
         , refresh_selector = $el.attr('data-refresh')
         , refresh_closest_selector = $el.attr('data-refresh-closest')
       
@@ -170,6 +171,9 @@
       }
       if (append_selector) {
         $(append_selector).append(data.html)
+      }
+      if (prepend_selector) {
+        $(prepend_selector).prepend(data.html)
       }
       if (refresh_selector) {
         $.each($(refresh_selector), function(index, value) {
@@ -204,6 +208,7 @@
       , replace_selector = $el.attr('data-replace')
       , replace_closest_selector = $el.attr('data-replace-closest')
       , append_selector = $el.attr('data-append')
+      , prepend_selector = $el.attr('data-prepend')
     
     if (replace_selector) {
       $(replace_selector).replaceWith(msg)
@@ -213,6 +218,9 @@
     }
     if (append_selector) {
       $(append_selector).append(msg)
+    }
+    if (prepend_selector) {
+      $(prepend_selector).prepend(msg)
     }
   }
 
