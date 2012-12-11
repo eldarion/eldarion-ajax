@@ -75,6 +75,8 @@
       , data = $this.serialize()
      
     $this.find("input[type=submit],button[type=submit]").attr("disabled", "disabled")
+
+    $('input').val('');
      
     spin($this)
     
