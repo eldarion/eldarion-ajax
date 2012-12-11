@@ -73,10 +73,10 @@
       , url = $this.attr('action')
       , method = $this.attr('method')
       , data = $this.serialize()
-     
-    $this.find("input[type=submit],button[type=submit]").attr("disabled", "disabled")
-
-     
+      , button = $this.find('input[type=submit],button[type=submit]')
+    
+    button.attr('disabled', 'disabled')
+    
     spin($this)
     
     e.preventDefault()
@@ -96,6 +96,9 @@
         404: function() {
             processError($this)
         }
+      },
+      complete: function() {
+        button.removeAttr('disabled')
       }
     })
   }
