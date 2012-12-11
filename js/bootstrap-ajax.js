@@ -76,7 +76,6 @@
      
     $this.find("input[type=submit],button[type=submit]").attr("disabled", "disabled")
 
-    $('input').val('');
      
     spin($this)
     
@@ -88,6 +87,7 @@
       data: data,
       statusCode: {
         200: function(data) {
+            $this.find('input[type=text],textarea').val('')
             processData(data, $this)
         },
         500: function() {
