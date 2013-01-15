@@ -161,6 +161,8 @@
     } else {
       var replace_selector = $el.attr('data-replace')
         , replace_closest_selector = $el.attr('data-replace-closest')
+        , replace_inner_selector = $el.attr('data-replace-inner')
+        , replace_closest_inner_selector = $el.attr('data-replace-closest-inner')
         , append_selector = $el.attr('data-append')
         , prepend_selector = $el.attr('data-prepend')
         , refresh_selector = $el.attr('data-refresh')
@@ -171,6 +173,12 @@
       }
       if (replace_closest_selector) {
         $el.closest(replace_closest_selector).replaceWith(data.html)
+      }
+      if (replace_inner_selector) {
+        $(replace_inner_selector).html(data.html)
+      }
+      if (replace_closest_inner_selector) {
+        $el.closest(replace_closest_inner_selector).html(data.html)
       }
       if (append_selector) {
         $(append_selector).append(data.html)
@@ -210,6 +218,8 @@
     var msg = '<div class="alert alert-error">There was a server error.</div>'
       , replace_selector = $el.attr('data-replace')
       , replace_closest_selector = $el.attr('data-replace-closest')
+      , replace_inner_selector = $el.attr('data-replace-inner')
+      , replace_closest_inner_selector = $el.attr('data-replace-closest-inner')
       , append_selector = $el.attr('data-append')
       , prepend_selector = $el.attr('data-prepend')
     
@@ -218,6 +228,12 @@
     }
     if (replace_closest_selector) {
       $el.closest(replace_closest_selector).replaceWith(msg)
+    }
+    if (replace_inner_selector) {
+      $(replace_inner_selector).html(msg)
+    }
+    if (replace_closest_inner_selector) {
+      $el.closest(replace_closest_inner_selector).html(msg)
     }
     if (append_selector) {
       $(append_selector).append(msg)
