@@ -54,6 +54,7 @@
     $.ajax({
       url: url,
       type: method,
+      dataType: 'json',
       statusCode: {
         200: function(data) {
           processData(data, $this)
@@ -85,6 +86,7 @@
       url: url,
       type: method,
       data: data,
+      dataType: 'json',
       statusCode: {
         200: function(data) {
             $this.find('input[type=text],textarea').val('')
