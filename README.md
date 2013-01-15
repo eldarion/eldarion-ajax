@@ -11,6 +11,9 @@ There is a demo project at https://github.com/eldarion/bootstrap-ajax-demo/ whic
 
 ## Installation
 
+jQuery is required for this library so make sure it is included somewhere on the page
+prior to the inclusion of ``bootstrap-ajax.js``.
+
 Copy the files in ```js/bootstrap-ajax.js``` and optionally ```vendor/spin.min.js``` to where
 you keep your web sites static media and the include them in your HTML:
 
