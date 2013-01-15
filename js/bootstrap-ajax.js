@@ -214,6 +214,7 @@
         $(i).html(data['inner-fragments'][i])
       }
     }
+    $(document).trigger('bootstrap-ajax:success', [data, $el]);
   }
   
   function processError($el) {
@@ -243,6 +244,7 @@
     if (prepend_selector) {
       $(prepend_selector).prepend(msg)
     }
+    $(document).trigger('bootstrap-ajax:error', [$el]);
   }
 
   $(function () {
