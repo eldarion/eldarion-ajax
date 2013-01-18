@@ -218,13 +218,13 @@
       }
     }
     if (data['append-fragments']) {
-      for (var i in data['append-fragments']) {
-        $(i).append(data['append-fragments'][i])
+      for (var a in data['append-fragments']) {
+        $(a).append(data['append-fragments'][a])
       }
     }
     if (data['prepend-fragments']) {
-      for (var i in data['prepend-fragments']) {
-        $(i).prepend(data['prepend-fragments'][i])
+      for (var p in data['prepend-fragments']) {
+        $(p).prepend(data['prepend-fragments'][p])
       }
     }
     $(document).trigger('bootstrap-ajax:success', [data, $el]);
