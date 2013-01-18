@@ -227,7 +227,7 @@
         $(p).prepend(data['prepend-fragments'][p])
       }
     }
-    $(document).trigger('bootstrap-ajax:success', [data, $el]);
+    $($el).trigger('bootstrap-ajax:success', [data, $el]);
   }
   
   function processError($el) {
@@ -257,7 +257,7 @@
     if (prepend_selector) {
       $(prepend_selector).prepend(msg)
     }
-    $(document).trigger('bootstrap-ajax:error', [$el]);
+    $($el).trigger('bootstrap-ajax:error', [$el]);
   }
 
   $(function () {
