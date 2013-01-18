@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.5.1
+
+* scope the event triggering
+
 ## 0.5
 
 * added support for appending fragments
