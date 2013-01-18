@@ -73,7 +73,7 @@
     var $this = $(this)
       , url = $this.attr('action')
       , method = $this.attr('method')
-      , data = $this.serialize()
+      , data = new FormData($this[0])
       , button = $this.find('input[type=submit],button[type=submit]')
     
     button.attr('disabled', 'disabled')
@@ -87,6 +87,9 @@
       type: method,
       data: data,
       dataType: 'json',
+      cache: false,
+      contentType: false,
+      processData: false,
       statusCode: {
         200: function(data) {
             $this.find('input[type=text],textarea').val('')
