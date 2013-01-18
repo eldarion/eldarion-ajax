@@ -217,6 +217,16 @@
         $(i).html(data['inner-fragments'][i])
       }
     }
+    if (data['append-fragments']) {
+      for (var i in data['append-fragments']) {
+        $(i).append(data['append-fragments'][i])
+      }
+    }
+    if (data['prepend-fragments']) {
+      for (var i in data['prepend-fragments']) {
+        $(i).prepend(data['prepend-fragments'][i])
+      }
+    }
     $(document).trigger('bootstrap-ajax:success', [data, $el]);
   }
   
