@@ -60,10 +60,10 @@
           processData(data, $this)
         },
         500: function() {
-          processError($this)
+          $this.trigger('bootstrap-ajax:error', [$this, 500])
         },
         404: function() {
-          processError($this)
+          $this.trigger('bootstrap-ajax:error', [$this, 404])
         }
       }
     })
@@ -96,10 +96,10 @@
             processData(data, $this)
         },
         500: function() {
-            processError($this)
+          $this.trigger('bootstrap-ajax:error', [$this, 500])
         },
         404: function() {
-            processError($this)
+          $this.trigger('bootstrap-ajax:error', [$this, 404])
         }
       },
       complete: function() {
@@ -227,39 +227,9 @@
         $(p).prepend(data['prepend-fragments'][p])
       }
     }
-    $($el).trigger('bootstrap-ajax:success', [data, $el]);
+    $el.trigger('bootstrap-ajax:success', [data, $el]);
   }
   
-  function processError($el) {
-    var msg = '<div class="alert alert-error">There was a server error.</div>'
-      , replace_selector = $el.attr('data-replace')
-      , replace_closest_selector = $el.attr('data-replace-closest')
-      , replace_inner_selector = $el.attr('data-replace-inner')
-      , replace_closest_inner_selector = $el.attr('data-replace-closest-inner')
-      , append_selector = $el.attr('data-append')
-      , prepend_selector = $el.attr('data-prepend')
-    
-    if (replace_selector) {
-      $(replace_selector).replaceWith(msg)
-    }
-    if (replace_closest_selector) {
-      $el.closest(replace_closest_selector).replaceWith(msg)
-    }
-    if (replace_inner_selector) {
-      $(replace_inner_selector).html(msg)
-    }
-    if (replace_closest_inner_selector) {
-      $el.closest(replace_closest_inner_selector).html(msg)
-    }
-    if (append_selector) {
-      $(append_selector).append(msg)
-    }
-    if (prepend_selector) {
-      $(prepend_selector).prepend(msg)
-    }
-    $($el).trigger('bootstrap-ajax:error', [$el]);
-  }
-
   $(function () {
     $('body').on('click', 'a.ajax', Ajax.prototype.click)
     $('body').on('submit', 'form.ajax', Ajax.prototype.submit)

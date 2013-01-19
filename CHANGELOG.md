@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 0.6.0
+
+* remove processError and replaced with triggering bootstrap-ajax:error with
+  the element and statusCode as parameters
+
+
 ## 0.5.1
 
 * scope the event triggering
