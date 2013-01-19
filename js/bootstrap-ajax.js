@@ -174,6 +174,8 @@
         , refresh_closest_selector = $el.attr('data-refresh-closest')
         , clear_selector = $el.attr('data-clear')
         , remove_selector = $el.attr('data-remove')
+        , clear_closest_selector = $el.attr('data-clear-closest')
+        , remove_closest_selector = $el.attr('data-remove-closest')
       
       if (replace_selector) {
         $(replace_selector).replaceWith(data.html)
@@ -212,6 +214,12 @@
       }
       if (remove_selector) {
         $(remove_selector).remove()
+      }
+      if (clear_closest_selector) {
+        $el.closest(clear_closest_selector).html('')
+      }
+      if (remove_closest_selector) {
+        $el.closest(remove_closest_selector).remove()
       }
     }
     
