@@ -2,6 +2,8 @@
 
 ## 0.6.0
 
+* add data-remove processing directive
+* add data-clear processing directive
 * remove processError and replaced with triggering bootstrap-ajax:error with
   the element and statusCode as parameters
 
