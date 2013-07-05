@@ -14,7 +14,7 @@ There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/ which
 ## Installation
 
 jQuery is required for this library so make sure it is included somewhere on the page
-prior to the inclusion of ``eldarion-ajax.js``.
+prior to the inclusion of ``eldarion-ajax.min.js``.
 
 Copy ```js/eldarion-ajax.min.js``` to where you keep your web sites static 
 media and the include them in your HTML:
