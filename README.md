@@ -1,29 +1,25 @@
-# bootstrap-ajax
+# eldarion-ajax
 
-This plugin is designed to work with Twitter Bootstrap to enable declarative AJAX support.
+This is a plugin that Eldarion uses for all of it's AJAX work.
 
-No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by adding a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, bootstrap-ajax leverages server side template rendering engines to render and return HTML fragments.
+No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by adding a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, eldarion-ajax leverages server side template rendering engines to render and return HTML fragments.
 
 ## Demo
 
-There is a demo project at https://github.com/eldarion/bootstrap-ajax-demo/ which is also online at http://uk013.o1.gondor.io/
+There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/ which is also online at http://uk013.gondor.co/
 
 
 ## Installation
 
 jQuery is required for this library so make sure it is included somewhere on the page
-prior to the inclusion of ``bootstrap-ajax.js``.
+prior to the inclusion of ``eldarion-ajax.js``.
 
-Copy the files in ```js/bootstrap-ajax.js``` and optionally ```vendor/spin.min.js``` to where
-you keep your web sites static media and the include them in your HTML:
+Copy ```js/eldarion-ajax.min.js``` to where you keep your web sites static 
+media and the include them in your HTML:
 
 ```
-<script src="/js/spin.min.js"></script>
-<script src="/js/bootstrap-ajax.js"></script>
+<script src="/js/eldarion-ajax.js"></script>
 ```
-
-The inclusion of ```spin.min.js``` is optional.
-
 
 ## Actions
 There are currently three actions supported:
@@ -183,11 +179,6 @@ method to interpret the selector.
 It is rare that you'll add/use all of these processing methods combined like this. Usually it will
 just be one or the other, however, I add them all here to illustrate the point that they are
 independently interpreted and executed.
-
-## Spinner
-This is an optional include and provides support to show an activity spinner during the life of the callback.
-
-You can specify where the spinner should be placed (it defaults to the ```a.click``` or ```form.submit``` in question) by declaring ```data-spinner``` with a CSS selector. You can turn it off all together by simply specifying ```off``` as the value instead of a selector.
 
 
 ## Commercial Support

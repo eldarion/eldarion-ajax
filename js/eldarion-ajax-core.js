@@ -1,5 +1,5 @@
 /* ====================================================================
- * bootstrap-ajax-core.js v0.7.0
+ * eldarion-ajax-core.js v0.7.0
  * ====================================================================
  * Copyright (c) 2013, Eldarion, Inc.
  * All rights reserved.
@@ -42,7 +42,7 @@
 
     if (!method) method = 'get';
 
-    $this.trigger('bootstrap-ajax:begin', [$this]);
+    $this.trigger('eldarion-ajax:begin', [$this]);
 
     e.preventDefault();
 
@@ -52,13 +52,13 @@
       dataType: 'json',
       statusCode: {
         200: function(data) {
-          $this.trigger('bootstrap-ajax:success', [$this, data]);
+          $this.trigger('eldarion-ajax:success', [$this, data]);
         },
         500: function() {
-          $this.trigger('bootstrap-ajax:error', [$this, 500]);
+          $this.trigger('eldarion-ajax:error', [$this, 500]);
         },
         404: function() {
-          $this.trigger('bootstrap-ajax:error', [$this, 404]);
+          $this.trigger('eldarion-ajax:error', [$this, 404]);
         }
       }
     });
@@ -70,7 +70,7 @@
         method = $this.attr('method'),
         data = $this.serialize();
 
-    $this.trigger('bootstrap-ajax:begin', [$this]);
+    $this.trigger('eldarion-ajax:begin', [$this]);
 
     e.preventDefault();
 
@@ -81,13 +81,13 @@
       dataType: 'json',
       statusCode: {
         200: function(data) {
-           $this.trigger('bootstrap-ajax:success', [$this, data]);
+           $this.trigger('eldarion-ajax:success', [$this, data]);
         },
         500: function() {
-          $this.trigger('bootstrap-ajax:error', [$this, 500]);
+          $this.trigger('eldarion-ajax:error', [$this, 500]);
         },
         404: function() {
-          $this.trigger('bootstrap-ajax:error', [$this, 404]);
+          $this.trigger('eldarion-ajax:error', [$this, 404]);
         }
       }
     });

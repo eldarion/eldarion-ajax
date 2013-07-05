@@ -1,5 +1,5 @@
 /* ====================================================================
- * bootstrap-ajax-handlers.js v0.1.0
+ * eldarion-ajax-handlers.js v0.1.0
  * ====================================================================
  * Copyright (c) 2013, Eldarion, Inc.
  * All rights reserved.
@@ -109,19 +109,19 @@
   };
 
   $(function () {
-    $(document).on('bootstrap-ajax:success', Handlers.prototype.redirect);
-    $(document).on('bootstrap-ajax:success', Handlers.prototype.fragments);
-    $(document).on('bootstrap-ajax:success', '[data-replace]', Handlers.prototype.replace);
-    $(document).on('bootstrap-ajax:success', '[data-replace-closest]', Handlers.prototype.replaceClosest);
-    $(document).on('bootstrap-ajax:success', '[data-replace-inner]', Handlers.prototype.replaceInner);
-    $(document).on('bootstrap-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner);
-    $(document).on('bootstrap-ajax:success', '[data-append]', Handlers.prototype.append);
-    $(document).on('bootstrap-ajax:success', '[data-prepend]', Handlers.prototype.prepend);
-    $(document).on('bootstrap-ajax:success', '[data-refresh]', Handlers.prototype.refresh);
-    $(document).on('bootstrap-ajax:success', '[data-refresh-closest]', Handlers.prototype.refreshClosest);
-    $(document).on('bootstrap-ajax:success', '[data-clear]', Handlers.prototype.clear);
-    $(document).on('bootstrap-ajax:success', '[data-remove]', Handlers.prototype.remove);
-    $(document).on('bootstrap-ajax:success', '[data-clear-closest]', Handlers.prototype.clearClosest);
-    $(document).on('bootstrap-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
+    $(document).on('eldarion-ajax:success', Handlers.prototype.redirect);
+    $(document).on('eldarion-ajax:success', Handlers.prototype.fragments);
+    $(document).on('eldarion-ajax:success', '[data-replace]', Handlers.prototype.replace);
+    $(document).on('eldarion-ajax:success', '[data-replace-closest]', Handlers.prototype.replaceClosest);
+    $(document).on('eldarion-ajax:success', '[data-replace-inner]', Handlers.prototype.replaceInner);
+    $(document).on('eldarion-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner);
+    $(document).on('eldarion-ajax:success', '[data-append]', Handlers.prototype.append);
+    $(document).on('eldarion-ajax:success', '[data-prepend]', Handlers.prototype.prepend);
+    $(document).on('eldarion-ajax:success', '[data-refresh]', Handlers.prototype.refresh);
+    $(document).on('eldarion-ajax:success', '[data-refresh-closest]', Handlers.prototype.refreshClosest);
+    $(document).on('eldarion-ajax:success', '[data-clear]', Handlers.prototype.clear);
+    $(document).on('eldarion-ajax:success', '[data-remove]', Handlers.prototype.remove);
+    $(document).on('eldarion-ajax:success', '[data-clear-closest]', Handlers.prototype.clearClosest);
+    $(document).on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
   });
 }(window.jQuery);

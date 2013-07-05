@@ -2,6 +2,7 @@
 
 ## 0.7.0
 
+* renamed library to eldarion-ajax
 * broke apart core and handlers
 * got rid of FormData to be more widely compatible
 * removed the form input clearing

@@ -1,9 +1,9 @@
 {
-    "name": "bootstrap-ajax",
+    "name": "eldarion-ajax",
     "version": "0.6.0",
     "main": [
-        "./js/bootstrap-ajax-core.js",
-        "./js/bootstrap-ajax-handlers.js"
+        "./js/eldarion-ajax-core.js",
+        "./js/eldarion-ajax-handlers.js"
     ],
     "dependencies": {
         "jquery": "~1.7.2"
