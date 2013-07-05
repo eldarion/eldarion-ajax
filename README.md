@@ -2,28 +2,36 @@
 
 This is a plugin that Eldarion uses for all of it's AJAX work.
 
-No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over again for each snippet of AJAX that you want to support. Easily extend support on the server side code for this by adding a top-level attribute to the JSON you are already returning called ```"html"``` that is the rendered content. Unlike a backbone.js approach to building a web app, eldarion-ajax leverages server side template rendering engines to render and return HTML fragments.
+No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over
+again for each snippet of AJAX that you want to support. Easily extend support
+on the server side code for this by adding a top-level attribute to the JSON you
+are already returning called ```"html"``` that is the rendered content. Unlike a
+backbone.js approach to building a web app, eldarion-ajax leverages server side
+template rendering engines to render and return HTML fragments.
 
-This project used to be called **bootstrap-ajax** but the connection with Twitter Bootstrap was tenuous at best so we thought it best to rename to *eldarion-ajax*.
+This project used to be called **bootstrap-ajax** but the connection with
+Twitter Bootstrap was tenuous at best so we thought it best to rename to
+*eldarion-ajax*.
 
 ## Demo
 
-There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/ which is also online at http://uk013.gondor.co/
+There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/ which
+is also online at http://uk013.gondor.co/
 
 
 ## Installation
 
-jQuery is required for this library so make sure it is included somewhere on the page
-prior to the inclusion of ``eldarion-ajax.min.js``.
+jQuery is required for this library so make sure it is included somewhere on the
+page prior to the inclusion of ``eldarion-ajax.min.js``.
 
 Copy ```js/eldarion-ajax.min.js``` to where you keep your web sites static 
 media and the include them in your HTML:
 
-```
-<script src="/js/eldarion-ajax.js"></script>
-```
+    <script src="/js/eldarion-ajax.js"></script>
+
 
 ## Actions
+
 There are currently three actions supported:
 
 1. ```a.click```
@@ -31,45 +39,95 @@ There are currently three actions supported:
 3. ```a.cancel```
 
 ### ```a.click```
+
 Binding to the ```a``` tag's click event where the tag has the class ```ajax```:
 
-```
-<a href="/tasks/12342/done/" class="btn ajax">
-    <i class="icon icon-check"></i>
-    Done
-</a>
-```
+    <a href="/tasks/12342/done/" class="btn ajax">
+        <i class="icon icon-check"></i>
+        Done
+    </a>
 
 In addition to the ```href``` attribute, you can add ```data-method="post"``` to
 change the default action from an HTTP GET to an HTTP POST.
 
 
 ### ```form.submit```
-Convert any form to an AJAX form submission quite easily by adding ```ajax``` to the
-form's class attribute:
 
-```
-<form class="form ajax" action="/tasks/create/" method="post">...</form>
-```
+Convert any form to an AJAX form submission quite easily by adding ```ajax```
+to the form's class attribute:
 
-When submitting this form, any ```input[type=submit]``` or ```button[type=submit]```
-will be disabled immediately, then the data in the form is serialized and sent to the
-server using the ```method``` that was declared in the ```form``` tag.
+    <form class="form ajax" action="/tasks/create/" method="post">...</form>
+
+When submitting this form the data in the form is serialized and sent to the
+server at the url defined in ```action``` using the ```method``` that was
+declared in the ```form``` tag.
 
 
 ### ```a.cancel```
-Any ```a``` tag that has a ```data-cancel-closest``` attribute defined will trigger
-the cancel event handler. This simply removes from the DOM any elements found using
-the selector defined in the ```data-cancel-closest``` attribute:
 
-```
-<a href="#" data-cancel-closest=".edit-form" class="btn">
-    Cancel
-</a>
-```
+Any ```a``` tag that has a ```data-cancel-closest``` attribute defined will
+trigger the cancel event handler. This simply removes from the DOM any elements
+found using the selector defined in the ```data-cancel-closest``` attribute:
+
+    <a href="#" data-cancel-closest=".edit-form" class="btn">
+        Cancel
+    </a>
 
 
-## Processing Responses
+## Events
+
+There are three custom events that get triggered allowing you to customize the
+behavior of eldarion-ajax.
+
+1. ```eldarion-ajax:begin```
+2. ```eldarion-ajax:success```
+3. ```eldarion-ajax:error```
+
+All events are triggered on the element that is declared to be ajax. For example,
+if you had a ```<a href="/tasks/2323/delete/" class="ajax" data-method="post">```
+link, the trigger would be fired on the ```<a>``` element. This, of course,
+bubbles up, but allows you to easily listen only for events on particular tags.
+
+Every event also sends as it's first parameter, the element itself, in case you
+were listing at a higher level in the chain, you still would have easy access to
+the relevant node.
+
+
+### ```eldarion-ajax:begin```
+
+This is the first event that fires and does so before any ajax activity starts.
+This allows you to setup a spinner, disable form buttons, etc. before the
+requests starts.
+
+A single argument is sent with this event and is the jQuery object for the node:
+
+    $(document).on("eldarion-ajax:begin", function(evt, $el) {
+        $el.html("Processing...");
+    });
+
+
+### ```eldarion-ajax:success```
+
+This is the event that is triggered once the server receives a successful
+response (status code 200) from the server. You can handle this in order to
+providde your own processors if the ones that ship by default do not meet your
+needs.
+
+Two arguments are passed with this event, the jQuery object for the node, and
+the JSON data from the server:
+
+    $(document).on("eldarion-ajax:success", [data-prepend-inner], function(evt, $el, data) {
+        var $node = $($el.data("prepend-inner"));
+        $node.data(data.html + $node.html());
+    });
+
+
+### ```eldarion-ajax:error```
+
+
+
+## Handlers: Processing Responses
+
 There are three data attributes looked for in the response JSON data:
 
 1. ```location```
