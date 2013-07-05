@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 0.7.0
+
+* broke apart core and handlers
+* got rid of FormData to be more widely compatible
+* removed the form input clearing
+* removed spinner
+* added a new event at the begin of a transaction
+
 ## 0.6.0
 
 * add data-remove processing directive
