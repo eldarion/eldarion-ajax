@@ -2,6 +2,8 @@
 
 This is a plugin that Eldarion uses for all of it's AJAX work.
 
+[![Build Status](https://travis-ci.org/eldarion/eldarion-ajax.png)](https://travis-ci.org/eldarion/eldarion-ajax)
+
 No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over
 again for each snippet of AJAX that you want to support. Easily extend support
 on the server side code for this by adding a top-level attribute to the JSON you
