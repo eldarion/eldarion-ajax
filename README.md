@@ -128,7 +128,6 @@ the JSON data from the server:
 This event sends a request for 400, 404, and 500 status codes.
 
 
-## Handlers: Processing Responses
 ### ```eldarion-ajax:complete```
 
 This gets sent on the completion of every ajax request no matter the status
@@ -139,6 +138,33 @@ from reaching your listener.
 
 It is passed the element (even if it no longer exists in the DOM), a ```jaXHR```
 object, and ```textStatus```.
+
+
+## Handlers: A Framework
+
+The events provided above allow you to roll your own handlers in such a way to
+really customize how you want your application to respond to server responses. A
+lot have been provided (see the section below), but here is a quick primer on
+writing your own.
+
+    $(function ($) {
+        CustomHandlers = {};
+        
+        CustomHandlers.prototype.replaceFadeIn = function (e, $el, data) {
+            $($el.data("replace-fade-in")).replaceWith(data.html).hide().fadeIn();
+        };
+        
+        $(function() {
+            $(document).on("eldarion-ajax:success", "[data-replace-fade-in]", CustomHandlers.prototype.replaceFadeIn);
+        });
+    }(window.jQuery));
+
+This gives you a lot of flexibility. For example, if you don't like how the
+batteries included approach treats server response data, you can drop the
+inclusion of ```eldarion-ajax-handlers.js``` and roll your own.
+
+
+## Handlers: Batteries Included
 
 There are three data attributes looked for in the response JSON data:
 
