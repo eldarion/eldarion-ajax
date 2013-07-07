@@ -11,7 +11,35 @@
     <div class="message"></div>
     <a href="/test/message/" class="ajax message-post" data-method="post" data-replace-inner=".message">Post</a>
     <a href="/test/message/" class="ajax message-get" data-method="get" data-replace-inner=".message">Get</a>
+    <a href="/test/message/400/" class="ajax message-get-400" data-method="get" data-replace-inner=".message">Get</a>
+    <a href="/test/message/404/" class="ajax message-get-404" data-method="get" data-replace-inner=".message">Get</a>
+    <a href="/test/message/500/" class="ajax message-get-500" data-method="get" data-replace-inner=".message">Get</a>
+    <a href="/test/message/503/" class="ajax message-get-503" data-method="get" data-replace-inner=".message">Get</a>
     <a href="/test/message/" class="ajax message-default" data-replace-inner=".message">Get Default</a>
+    <form class="ajax form-post" method="post" action="/create/message/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
+    <form class="ajax form-post-400" method="post" action="/create/message/400/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
+    <form class="ajax form-post-404" method="post" action="/create/message/404/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
+    <form class="ajax form-post-500" method="post" action="/create/message/500/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
+    <form class="ajax form-post-503" method="post" action="/create/message/503/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
+    <form class="ajax form-get" method="get" action="/search/message/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
   </div>
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
