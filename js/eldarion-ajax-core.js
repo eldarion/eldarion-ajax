@@ -57,6 +57,9 @@
         500: function() {
           $this.trigger('eldarion-ajax:error', [$this, 500]);
         },
+        400: function() {
+          $this.trigger('eldarion-ajax:error', [$this, 400]);
+        },
         404: function() {
           $this.trigger('eldarion-ajax:error', [$this, 404]);
         }
@@ -85,6 +88,9 @@
         },
         500: function() {
           $this.trigger('eldarion-ajax:error', [$this, 500]);
+        },
+        400: function() {
+          $this.trigger('eldarion-ajax:error', [$this, 400]);
         },
         404: function() {
           $this.trigger('eldarion-ajax:error', [$this, 404]);
