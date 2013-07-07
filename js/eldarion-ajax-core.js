@@ -42,7 +42,7 @@
     Ajax.prototype.click = function (e) {
         var $this = $(this),
             url = $this.attr('href'),
-            method = $this.attr('data-method');
+            method = $this.data('method');
 
         if (!method) {
             method = 'get';
