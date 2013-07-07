@@ -30,93 +30,99 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * ==================================================================== */
 
-!function ($) {
-  'use strict';
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true,
+  strict:true, undef:true, unused:true, curly:true, browser:true, jquery:true,
+  indent:4, maxerr:50 */
 
-  var Ajax = function () {};
+(function ($) {
+    'use strict';
 
-  Ajax.prototype.click = function (e) {
-    var $this = $(this),
-        url = $this.attr('href'),
-        method = $this.attr('data-method');
+    var Ajax = function () {};
 
-    if (!method) method = 'get';
+    Ajax.prototype.click = function (e) {
+        var $this = $(this),
+            url = $this.attr('href'),
+            method = $this.attr('data-method');
 
-    $this.trigger('eldarion-ajax:begin', [$this]);
-
-    e.preventDefault();
-
-    $.ajax({
-      url: url,
-      type: method,
-      dataType: 'json',
-      headers: {'X-Eldarion-Ajax': true},
-      statusCode: {
-        200: function(data) {
-          $this.trigger('eldarion-ajax:success', [$this, data]);
-        },
-        500: function() {
-          $this.trigger('eldarion-ajax:error', [$this, 500]);
-        },
-        400: function() {
-          $this.trigger('eldarion-ajax:error', [$this, 400]);
-        },
-        404: function() {
-          $this.trigger('eldarion-ajax:error', [$this, 404]);
+        if (!method) {
+            method = 'get';
         }
-      },
-      complete: function(jqXHR, textStatus) {
-          $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
-      }
+
+        $this.trigger('eldarion-ajax:begin', [$this]);
+
+        e.preventDefault();
+
+        $.ajax({
+            url: url,
+            type: method,
+            dataType: 'json',
+            headers: {'X-Eldarion-Ajax': true},
+            statusCode: {
+                200: function (data) {
+                    $this.trigger('eldarion-ajax:success', [$this, data]);
+                },
+                500: function () {
+                    $this.trigger('eldarion-ajax:error', [$this, 500]);
+                },
+                400: function () {
+                    $this.trigger('eldarion-ajax:error', [$this, 400]);
+                },
+                404: function () {
+                    $this.trigger('eldarion-ajax:error', [$this, 404]);
+                }
+            },
+            complete: function (jqXHR, textStatus) {
+                $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
+            }
+        });
+    };
+
+    Ajax.prototype.submit = function (e) {
+        var $this = $(this),
+            url = $this.attr('action'),
+            method = $this.attr('method'),
+            data = $this.serialize();
+
+        $this.trigger('eldarion-ajax:begin', [$this]);
+
+        e.preventDefault();
+
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            dataType: 'json',
+            headers: {'X-Eldarion-Ajax': true},
+            statusCode: {
+                200: function (data) {
+                    $this.trigger('eldarion-ajax:success', [$this, data]);
+                },
+                500: function () {
+                    $this.trigger('eldarion-ajax:error', [$this, 500]);
+                },
+                400: function () {
+                    $this.trigger('eldarion-ajax:error', [$this, 400]);
+                },
+                404: function () {
+                    $this.trigger('eldarion-ajax:error', [$this, 404]);
+                }
+            },
+            complete: function (jqXHR, textStatus) {
+                $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
+            }
+        });
+    };
+
+    Ajax.prototype.cancel = function (e) {
+        var $this = $(this),
+            selector = $this.attr('data-cancel-closest');
+        e.preventDefault();
+        $this.closest(selector).remove();
+    };
+
+    $(function () {
+        $('body').on('click', 'a.ajax', Ajax.prototype.click);
+        $('body').on('submit', 'form.ajax', Ajax.prototype.submit);
+        $('body').on('click', 'a[data-cancel-closest]', Ajax.prototype.cancel);
     });
-  };
-
-  Ajax.prototype.submit = function (e) {
-    var $this = $(this),
-        url = $this.attr('action'),
-        method = $this.attr('method'),
-        data = $this.serialize();
-
-    $this.trigger('eldarion-ajax:begin', [$this]);
-
-    e.preventDefault();
-
-    $.ajax({
-      url: url,
-      type: method,
-      data: data,
-      dataType: 'json',
-      headers: {'X-Eldarion-Ajax': true},
-      statusCode: {
-        200: function(data) {
-           $this.trigger('eldarion-ajax:success', [$this, data]);
-        },
-        500: function() {
-          $this.trigger('eldarion-ajax:error', [$this, 500]);
-        },
-        400: function() {
-          $this.trigger('eldarion-ajax:error', [$this, 400]);
-        },
-        404: function() {
-          $this.trigger('eldarion-ajax:error', [$this, 404]);
-        }
-      },
-      complete: function(jqXHR, textStatus) {
-          $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
-      }
-    });
-  };
-
-  Ajax.prototype.cancel = function(e) {
-    var $this = $(this),
-        selector = $this.attr('data-cancel-closest');
-    e.preventDefault();
-    $this.closest(selector).remove();
-  };
-
-  $(function () {
-    $('body').on('click', 'a.ajax', Ajax.prototype.click);
-    $('body').on('submit', 'form.ajax', Ajax.prototype.submit);
-    $('body').on('click', 'a[data-cancel-closest]', Ajax.prototype.cancel);
-  });
-}(window.jQuery);
+}(window.jQuery));
