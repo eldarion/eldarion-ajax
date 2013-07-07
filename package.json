@@ -1,0 +1,25 @@
+{
+  "name": "eldarion-ajax",
+  "version": "0.7.2",
+  "description": "a library for adding declarative ajax functionality to your website",
+  "main": "js/eldarion-ajax.min.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "python tests/runner.py tests/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eldarion/eldarion-ajax"
+  },
+  "keywords": [
+    "ajax"
+  ],
+  "author": "Patrick Altman",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "jshint": "2.1.4"
+  }
+}
