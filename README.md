@@ -111,7 +111,7 @@ A single argument is sent with this event and is the jQuery object for the node:
 
 This is the event that is triggered once the server receives a successful
 response (status code 200) from the server. You can handle this in order to
-providde your own processors if the ones that ship by default do not meet your
+provide your own processors if the ones that ship by default do not meet your
 needs.
 
 Two arguments are passed with this event, the jQuery object for the node, and
