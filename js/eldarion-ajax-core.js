@@ -1,5 +1,5 @@
 /* ====================================================================
- * eldarion-ajax-core.js v0.7.0
+ * eldarion-ajax-core.js v0.7.1
  * ====================================================================
  * Copyright (c) 2013, Eldarion, Inc.
  * All rights reserved.
@@ -63,6 +63,9 @@
         404: function() {
           $this.trigger('eldarion-ajax:error', [$this, 404]);
         }
+      },
+      complete: function(jqXHR, textStatus) {
+          $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
       }
     });
   };
@@ -95,6 +98,9 @@
         404: function() {
           $this.trigger('eldarion-ajax:error', [$this, 404]);
         }
+      },
+      complete: function(jqXHR, textStatus) {
+          $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
       }
     });
   };
