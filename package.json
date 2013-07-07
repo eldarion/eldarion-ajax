@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "python tests/runner.py tests/index.html"
+    "test": "./ci.sh"
   },
   "repository": {
     "type": "git",

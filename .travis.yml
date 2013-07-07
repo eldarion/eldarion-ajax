@@ -1,4 +1,4 @@
 language: node_js
 node_js:
   - 0.10
-script: "jshint js/eldarion-ajax-core.js js/eldarion-ajax-handlers.js && npm test"
+script: "npm test"

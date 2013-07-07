@@ -1,4 +1,4 @@
-module("Core Testing of Requests", {
+module("Core Testing of Requests (jQuery " + jQuery.fn.jquery + ")", {
     setup: function () {
         this.requests = [];
         this.xhr = sinon.useFakeXMLHttpRequest();
@@ -81,7 +81,7 @@ test("eldarion-ajax:begin event is triggered with element reference from a submi
 });
 
 
-module("Core Response Tests", {
+module("Core Response Tests (jQuery " + jQuery.fn.jquery + ")", {
     setup: function () {
         var testData = {"html": "My simple content"};
         this.server = sinon.fakeServer.create();
