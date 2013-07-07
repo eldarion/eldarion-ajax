@@ -50,6 +50,7 @@
       url: url,
       type: method,
       dataType: 'json',
+      headers: {'X-Eldarion-Ajax': true},
       statusCode: {
         200: function(data) {
           $this.trigger('eldarion-ajax:success', [$this, data]);
@@ -85,6 +86,7 @@
       type: method,
       data: data,
       dataType: 'json',
+      headers: {'X-Eldarion-Ajax': true},
       statusCode: {
         200: function(data) {
            $this.trigger('eldarion-ajax:success', [$this, data]);
