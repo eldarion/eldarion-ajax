@@ -82,6 +82,7 @@ behavior of eldarion-ajax.
 1. ```eldarion-ajax:begin```
 2. ```eldarion-ajax:success```
 3. ```eldarion-ajax:error```
+4. ```eldarion-ajax:complete```
 
 All events are triggered on the element that is declared to be ajax. For example,
 if you had a ```<a href="/tasks/2323/delete/" class="ajax" data-method="post">```
@@ -127,6 +128,16 @@ the JSON data from the server:
 
 
 ## Handlers: Processing Responses
+### ```eldarion-ajax:complete```
+
+This gets sent on the completion of every ajax request no matter the status
+code and in addition to the events listing above. This is triggered from the
+document rather than the element in context as the handlers processing success
+messages could replace the DOM element and therefore would prevent the event
+from reaching your listener.
+
+It is passed the element (even if it no longer exists in the DOM), a ```jaXHR```
+object, and ```textStatus```.
 
 There are three data attributes looked for in the response JSON data:
 
