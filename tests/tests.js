@@ -16,57 +16,57 @@ test("data-method with value of POST should send a POST request", 3, function ()
     $("#qunit-fixture a.message-post").trigger("click");
     var request = this.requests[0];
 
-    equal(request.method, 'POST');
-    equal(request.url, '/test/message/');
-    equal(request.requestBody, null);
+    equal(request.method, 'POST', 'request method is POST');
+    equal(request.url, '/test/message/', 'request url matches');
+    equal(request.requestBody, null, 'request body is empty');
 });
 
 test("data-method with value of GET should send a GET request", 3, function () {
     $("#qunit-fixture a.message-get").trigger("click");
     var request = this.requests[0];
 
-    equal(request.method, 'GET');
-    equal(request.url, '/test/message/');
-    equal(request.requestBody, null);
+    equal(request.method, 'GET', 'request method is GET');
+    equal(request.url, '/test/message/', 'request url matches');
+    equal(request.requestBody, null, 'request body is empty');
 });
 
 test("no data-method defined should send a GET request", 3, function () {
     $("#qunit-fixture a.message-default").trigger("click");
     var request = this.requests[0];
 
-    equal(request.method, 'GET');
-    equal(request.url, '/test/message/');
-    equal(request.requestBody, null);
+    equal(request.method, 'GET', 'request method is GET');
+    equal(request.url, '/test/message/', 'request url matches');
+    equal(request.requestBody, null, 'request body is empty');
 });
 
 test("X-Eldarion-Ajax header is set", 1, function () {
     $("#qunit-fixture a.message-default").trigger("click");
     var request = this.requests[0];
 
-    equal(request.requestHeaders["X-Eldarion-Ajax"], true);
+    equal(request.requestHeaders["X-Eldarion-Ajax"], true, 'header is set to true');
 });
 
 test("form submit with method of POST should send a POST request", 3, function () {
     $("#qunit-fixture .form-post").trigger("submit");
     var request = this.requests[0];
 
-    equal(request.method, 'POST');
-    equal(request.url, '/create/message/');
-    equal(request.requestBody, "label=Test+Value&number=2");
+    equal(request.method, 'POST', 'request method is POST');
+    equal(request.url, '/create/message/', 'request url matches');
+    equal(request.requestBody, "label=Test+Value&number=2", 'request body had the correct data');
 });
 
 test("form submit with method of GET should send a GET request", 3, function () {
     $("#qunit-fixture .form-get").trigger("submit");
     var request = this.requests[0];
 
-    equal(request.method, 'GET');
-    equal(request.url, '/search/message/?label=Test+Value&number=2');
-    equal(request.requestBody, null);
+    equal(request.method, 'GET', 'request method is GET');
+    equal(request.url, '/search/message/?label=Test+Value&number=2', 'request url matches');
+    equal(request.requestBody, null, 'request body is empty');
 });
 
 test("eldarion-ajax:begin event is triggered with element reference from a click", 1, function () {
     $("#qunit-fixture").on("eldarion-ajax:begin", function(evt, $el) {
-        equal($el.text(), "Get Default");
+        equal($el.text(), "Get Default", 'event was triggered');
     });
     $("#qunit-fixture a.message-default").trigger("click");
     $("#qunit-fixture").off("eldarion-ajax:begin");
@@ -74,7 +74,7 @@ test("eldarion-ajax:begin event is triggered with element reference from a click
 
 test("eldarion-ajax:begin event is triggered with element reference from a submit", 1, function () {
     $("#qunit-fixture").on("eldarion-ajax:begin", function(evt, $el) {
-        ok($el.hasClass("form-post"));
+        ok($el.hasClass("form-post"), 'event was triggered');
     });
     $("#qunit-fixture .form-post").trigger("submit");
     $("#qunit-fixture").off("eldarion-ajax:begin");
@@ -103,9 +103,9 @@ module("Core Response Tests", {
 
 test("a.click with 200 status code fires eldarion-ajax:success", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:success", function(evt, $el, data) {
-        equal($el.data("method"), "get");
-        equal($el.attr("href"), '/test/message/');
-        deepEqual(data, {"html": "My simple content"});
+        equal($el.data("method"), "get", 'request method is GET');
+        equal($el.attr("href"), '/test/message/', 'request url matches');
+        deepEqual(data, {"html": "My simple content"}, 'event passed the correct data');
     });
     $("#qunit-fixture a.message-get").trigger("click");
     this.server.respond();
@@ -114,9 +114,9 @@ test("a.click with 200 status code fires eldarion-ajax:success", 3, function () 
 
 test("a.click with 400 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
-        equal($el.data("method"), "get");
-        equal($el.attr("href"), '/test/message/400/');
-        equal(statusCode, 400);
+        equal($el.data("method"), "get", 'request method is GET');
+        equal($el.attr("href"), '/test/message/400/', 'request url matches');
+        equal(statusCode, 400, 'statusCode was 400');
     });
     $("#qunit-fixture a.message-get-400").trigger("click");
     this.server.respond();
@@ -125,9 +125,9 @@ test("a.click with 400 status code fires eldarion-ajax:error", 3, function () {
 
 test("a.click with 404 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
-        equal($el.data("method"), "get");
-        equal($el.attr("href"), '/test/message/404/');
-        equal(statusCode, 404);
+        equal($el.data("method"), "get", 'request method is GET');
+        equal($el.attr("href"), '/test/message/404/', 'request url matches');
+        equal(statusCode, 404, 'statusCode was 404');
     });
     $("#qunit-fixture a.message-get-404").trigger("click");
     this.server.respond();
@@ -137,9 +137,9 @@ test("a.click with 404 status code fires eldarion-ajax:error", 3, function () {
 
 test("a.click with 500 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
-        equal($el.data("method"), "get");
-        equal($el.attr("href"), '/test/message/500/');
-        equal(statusCode, 500);
+        equal($el.data("method"), "get", 'request method is GET');
+        equal($el.attr("href"), '/test/message/500/', 'request url matches');
+        equal(statusCode, 500, 'statusCode was 500');
     });
     $("#qunit-fixture a.message-get-500").trigger("click");
     this.server.respond();
@@ -149,9 +149,9 @@ test("a.click with 500 status code fires eldarion-ajax:error", 3, function () {
 
 test("a.click with 503 status code fires eldarion-ajax:complete", 3, function () {
     $(document).on("eldarion-ajax:complete", function(evt, $el, jqXHR, textStatus) {
-        equal($el.data("method"), "get");
-        equal($el.attr("href"), '/test/message/503/');
-        equal(jqXHR.status, 503);
+        equal($el.data("method"), "get", 'request method is GET');
+        equal($el.attr("href"), '/test/message/503/', 'request url matches');
+        equal(jqXHR.status, 503, 'statusCode was 503');
     });
     $("#qunit-fixture a.message-get-503").trigger("click");
     this.server.respond();
@@ -160,9 +160,9 @@ test("a.click with 503 status code fires eldarion-ajax:complete", 3, function ()
 
 test("form.submit with 200 status code fires eldarion-ajax:success", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:success", function(evt, $el, data) {
-        equal($el.attr("method"), "post");
-        equal($el.attr("action"), '/create/message/');
-        deepEqual(data, {"html": "My simple content"});
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/create/message/', 'request url matches');
+        deepEqual(data, {"html": "My simple content"}, 'event sent the correct data');
     });
     $("#qunit-fixture .form-post").trigger("submit");
     this.server.respond();
@@ -171,9 +171,9 @@ test("form.submit with 200 status code fires eldarion-ajax:success", 3, function
 
 test("form.submit with 400 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
-        equal($el.attr("method"), "post");
-        equal($el.attr("action"), '/create/message/400/');
-        equal(statusCode, 400);
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/create/message/400/', 'request url matches');
+        equal(statusCode, 400, 'statusCode was 400');
     });
     $("#qunit-fixture .form-post-400").trigger("submit");
     this.server.respond();
@@ -182,9 +182,9 @@ test("form.submit with 400 status code fires eldarion-ajax:error", 3, function (
 
 test("form.submit with 404 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
-        equal($el.attr("method"), "post");
-        equal($el.attr("action"), '/create/message/404/');
-        equal(statusCode, 404);
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/create/message/404/', 'request url matches');
+        equal(statusCode, 404, 'statusCode was 404');
     });
     $("#qunit-fixture .form-post-404").trigger("submit");
     this.server.respond();
@@ -194,9 +194,9 @@ test("form.submit with 404 status code fires eldarion-ajax:error", 3, function (
 
 test("form.submit with 500 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
-        equal($el.attr("method"), "post");
-        equal($el.attr("action"), '/create/message/500/');
-        equal(statusCode, 500);
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/create/message/500/', 'request url matches');
+        equal(statusCode, 500, 'statusCode was 500');
     });
     $("#qunit-fixture .form-post-500").trigger("submit");
     this.server.respond();
@@ -206,9 +206,9 @@ test("form.submit with 500 status code fires eldarion-ajax:error", 3, function (
 
 test("form.submit with 503 status code fires eldarion-ajax:complete", 3, function () {
     $(document).on("eldarion-ajax:complete", function(evt, $el, jqXHR, textStatus) {
-        equal($el.attr("method"), "post");
-        equal($el.attr("action"), '/create/message/503/');
-        equal(jqXHR.status, 503);
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/create/message/503/', 'request url matches');
+        equal(jqXHR.status, 503, 'statusCode was 503');
     });
     $("#qunit-fixture .form-post-503").trigger("submit");
     this.server.respond();
