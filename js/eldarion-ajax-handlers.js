@@ -92,22 +92,22 @@
     Handlers.prototype.fragments = function(e, $el, data) {
         if (data.fragments) {
             $.each(data.fragments, function (i, s) {
-                $(s).replaceWith(data.fragments[s]);
+                $(i).replaceWith(s);
             });
         }
         if (data['inner-fragments']) {
             $.each(data['inner-fragments'], function(i, s) {
-                $(s).html(data['inner-fragments'][s]);
+                $(i).html(s);
             });
         }
         if (data['append-fragments']) {
             $.each(data['append-fragments'], function(i, s) {
-                $(s).append(data['append-fragments'][s]);
+                $(i).append(s);
             });
         }
         if (data['prepend-fragments']) {
             $.each(data['prepend-fragments'], function(i, s) {
-                $(s).prepend(data['prepend-fragments'][s]);
+                $(i).prepend(s);
             });
         }
     };
