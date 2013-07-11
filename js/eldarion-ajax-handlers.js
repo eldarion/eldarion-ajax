@@ -1,5 +1,5 @@
 /* ====================================================================
- * eldarion-ajax-handlers.js v0.1.0
+ * eldarion-ajax-handlers.js v0.1.1
  * ====================================================================
  * Copyright (c) 2013, Eldarion, Inc.
  * All rights reserved.
