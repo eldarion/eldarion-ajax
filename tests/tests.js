@@ -86,6 +86,7 @@ module("Core Response Tests (jQuery " + jQuery.fn.jquery + ")", {
         var testData = {"html": "My simple content"};
         this.server = sinon.fakeServer.create();
         this.server.respondWith("GET", "/test/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("POST", "/test/message/no-data/", [200, {"Content-Type": "text/html"}, ""]);
         this.server.respondWith("GET", "/test/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
@@ -108,6 +109,17 @@ test("a.click with 200 status code fires eldarion-ajax:success", 3, function () 
         deepEqual(data, {"html": "My simple content"}, 'event passed the correct data');
     });
     $("#qunit-fixture a.message-get").trigger("click");
+    this.server.respond();
+    $("#qunit-fixture").off("eldarion-ajax:success");
+});
+
+test("a.click with 200 status code fires eldarion-ajax:success with default data", 3, function () {
+    $("#qunit-fixture").on("eldarion-ajax:success", function(evt, $el, data) {
+        equal($el.data("method"), "post", 'request method is POST');
+        equal($el.attr("href"), '/test/message/no-data/', 'request url matches');
+        notEqual(data, undefined, 'event passed the correct data');
+    });
+    $("#qunit-fixture a.message-post-no-data").trigger("click");
     this.server.respond();
     $("#qunit-fixture").off("eldarion-ajax:success");
 });
@@ -203,6 +215,16 @@ test("form.submit with 500 status code fires eldarion-ajax:error", 3, function (
     $("#qunit-fixture").off("eldarion-ajax:error");
 });
 
+test("form.submit with 200 status code fires eldarion-ajax:success with default data", 3, function () {
+    $("#qunit-fixture").on("eldarion-ajax:success", function(evt, $el, data) {
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/test/message/no-data/', 'request url matches');
+        notEqual(data, undefined, 'event passed the correct data');
+    });
+    $("#qunit-fixture .form-post-no-data").trigger("submit");
+    this.server.respond();
+    $("#qunit-fixture").off("eldarion-ajax:success");
+});
 
 test("form.submit with 503 status code fires eldarion-ajax:complete", 3, function () {
     $(document).on("eldarion-ajax:complete", function(evt, $el, jqXHR, textStatus) {
@@ -214,4 +236,3 @@ test("form.submit with 503 status code fires eldarion-ajax:complete", 3, functio
     this.server.respond();
     $(document).off("eldarion-ajax:complete");
 });
-

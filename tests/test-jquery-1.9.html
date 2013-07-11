@@ -10,6 +10,7 @@
   <div id="qunit-fixture">
     <div class="message"></div>
     <a href="/test/message/" class="ajax message-post" data-method="post" data-replace-inner=".message">Post</a>
+    <a href="/test/message/no-data/" class="ajax message-post-no-data" data-method="post" data-replace-inner=".message">Post</a>
     <a href="/test/message/" class="ajax message-get" data-method="get" data-replace-inner=".message">Get</a>
     <a href="/test/message/400/" class="ajax message-get-400" data-method="get" data-replace-inner=".message">Get</a>
     <a href="/test/message/404/" class="ajax message-get-404" data-method="get" data-replace-inner=".message">Get</a>
@@ -17,6 +18,10 @@
     <a href="/test/message/503/" class="ajax message-get-503" data-method="get" data-replace-inner=".message">Get</a>
     <a href="/test/message/" class="ajax message-default" data-replace-inner=".message">Get Default</a>
     <form class="ajax form-post" method="post" action="/create/message/">
+        <input type="text" name="label" value="Test Value" />
+        <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
+    </form>
+    <form class="ajax form-post-no-data" method="post" action="/test/message/no-data/">
         <input type="text" name="label" value="Test Value" />
         <select name="number"><option value="1">One</option><option selected value="2">Two</option></select>
     </form>
