@@ -59,6 +59,9 @@
             headers: {'X-Eldarion-Ajax': true},
             statusCode: {
                 200: function (data) {
+                    if (!data) {
+                        data = {};
+                    }
                     $this.trigger('eldarion-ajax:success', [$this, data]);
                 },
                 500: function () {
@@ -95,6 +98,9 @@
             headers: {'X-Eldarion-Ajax': true},
             statusCode: {
                 200: function (data) {
+                    if (!data) {
+                        data = {};
+                    }
                     $this.trigger('eldarion-ajax:success', [$this, data]);
                 },
                 500: function () {
