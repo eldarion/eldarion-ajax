@@ -1,6 +1,6 @@
 {
   "name": "eldarion-ajax",
-  "version": "0.7.2",
+  "version": "0.9",
   "description": "a library for adding declarative ajax functionality to your website",
   "main": "js/eldarion-ajax.min.js",
   "directories": {

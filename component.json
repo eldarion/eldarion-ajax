@@ -1,6 +1,6 @@
 {
     "name": "eldarion-ajax",
-    "version": "0.7.2",
+    "version": "0.9",
     "main": [
         "./js/eldarion-ajax-core.js",
         "./js/eldarion-ajax-handlers.js"
