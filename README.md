@@ -1,6 +1,6 @@
 # eldarion-ajax
 
-This is a plugin that Eldarion uses for all of it's AJAX work.
+This is a plugin that Eldarion uses for all of its AJAX work.
 
 [![Build Status](https://travis-ci.org/eldarion/eldarion-ajax.png)](https://travis-ci.org/eldarion/eldarion-ajax)
 
@@ -91,7 +91,7 @@ if you had a ```<a href="/tasks/2323/delete/" class="ajax" data-method="post">``
 link, the trigger would be fired on the ```<a>``` element. This, of course,
 bubbles up, but allows you to easily listen only for events on particular tags.
 
-Every event also sends as it's first parameter, the element itself, in case you
+Every event also sends as its first parameter, the element itself, in case you
 were listing at a higher level in the chain, you still would have easy access to
 the relevant node.
 
@@ -221,8 +221,8 @@ server response's JSON be appended to the elements found in the specified CSS se
 
 ### Refresh
 
-Using the ```data-refresh``` attribute let's you define what elements, if selected by the
-CSS selector specified for it's value, get **_refreshed_**. Elements that are selected will
+Using the ```data-refresh``` attribute lets you define what elements, if selected by the
+CSS selector specified for its value, get **_refreshed_**. Elements that are selected will
 get refreshed with the contents of the url defined in their ```data-refresh-url```
 attribute:
 
