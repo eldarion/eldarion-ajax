@@ -39,6 +39,37 @@
 
     var Ajax = function () {};
 
+    Ajax.prototype._ajax = function ($el, url, method, data) {
+        $el.trigger('eldarion-ajax:begin', [$el]);
+        $.ajax({
+            url: url,
+            type: method,
+            dataType: 'json',
+            data: data,
+            headers: {'X-Eldarion-Ajax': true},
+            statusCode: {
+                200: function (responseData) {
+                    if (!responseData) {
+                        responseData = {};
+                    }
+                    $el.trigger('eldarion-ajax:success', [$el, responseData]);
+                },
+                500: function () {
+                    $el.trigger('eldarion-ajax:error', [$el, 500]);
+                },
+                400: function () {
+                    $el.trigger('eldarion-ajax:error', [$el, 400]);
+                },
+                404: function () {
+                    $el.trigger('eldarion-ajax:error', [$el, 404]);
+                }
+            },
+            complete: function (jqXHR, textStatus) {
+                $(document).trigger('eldarion-ajax:complete', [$el, jqXHR, textStatus]);
+            }
+        });
+    };
+
     Ajax.prototype.click = function (e) {
         var $this = $(this),
             url = $this.attr('href'),
@@ -48,36 +79,9 @@
             method = 'get';
         }
 
-        $this.trigger('eldarion-ajax:begin', [$this]);
-
         e.preventDefault();
 
-        $.ajax({
-            url: url,
-            type: method,
-            dataType: 'json',
-            headers: {'X-Eldarion-Ajax': true},
-            statusCode: {
-                200: function (data) {
-                    if (!data) {
-                        data = {};
-                    }
-                    $this.trigger('eldarion-ajax:success', [$this, data]);
-                },
-                500: function () {
-                    $this.trigger('eldarion-ajax:error', [$this, 500]);
-                },
-                400: function () {
-                    $this.trigger('eldarion-ajax:error', [$this, 400]);
-                },
-                404: function () {
-                    $this.trigger('eldarion-ajax:error', [$this, 404]);
-                }
-            },
-            complete: function (jqXHR, textStatus) {
-                $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
-            }
-        });
+        Ajax.prototype._ajax($this, url, method, null);
     };
 
     Ajax.prototype.submit = function (e) {
@@ -86,37 +90,9 @@
             method = $this.attr('method'),
             data = $this.serialize();
 
-        $this.trigger('eldarion-ajax:begin', [$this]);
-
         e.preventDefault();
 
-        $.ajax({
-            url: url,
-            type: method,
-            data: data,
-            dataType: 'json',
-            headers: {'X-Eldarion-Ajax': true},
-            statusCode: {
-                200: function (data) {
-                    if (!data) {
-                        data = {};
-                    }
-                    $this.trigger('eldarion-ajax:success', [$this, data]);
-                },
-                500: function () {
-                    $this.trigger('eldarion-ajax:error', [$this, 500]);
-                },
-                400: function () {
-                    $this.trigger('eldarion-ajax:error', [$this, 400]);
-                },
-                404: function () {
-                    $this.trigger('eldarion-ajax:error', [$this, 404]);
-                }
-            },
-            complete: function (jqXHR, textStatus) {
-                $(document).trigger('eldarion-ajax:complete', [$this, jqXHR, textStatus]);
-            }
-        });
+        Ajax.prototype._ajax($this, url, method, data);
     };
 
     Ajax.prototype.cancel = function (e) {
