@@ -102,9 +102,38 @@
         $this.closest(selector).remove();
     };
 
+    Ajax.prototype.timeout = function (i, el) {
+        var $el = $(el),
+            timeout = $el.data('timeout'),
+            url = $el.data('url'),
+            method = $el.data('method');
+
+        if (!method) {
+            method = 'get';
+        }
+
+        window.setTimeout(Ajax.prototype._ajax, timeout, $el, url, method, null);
+    };
+
+    Ajax.prototype.interval = function (i, el) {
+        var $el = $(el),
+            interval = $el.data('interval'),
+            url = $el.data('url'),
+            method = $el.data('method');
+
+        if (!method) {
+            method = 'get';
+        }
+
+        window.setInterval(Ajax.prototype._ajax, interval, $el, url, method, null);
+    };
+
     $(function () {
         $('body').on('click', 'a.ajax', Ajax.prototype.click);
         $('body').on('submit', 'form.ajax', Ajax.prototype.submit);
         $('body').on('click', 'a[data-cancel-closest]', Ajax.prototype.cancel);
+
+        $('[data-timeout]').each(Ajax.prototype.timeout);
+        $('[data-interval]').each(Ajax.prototype.interval);
     });
 }(window.jQuery));
