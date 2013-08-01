@@ -22,11 +22,11 @@
 This was a very minor release. Should have likely been a 0.7.3, except that I wanted to start versioning eldarion-ajax-core.js and eldarion-ajax-handlers.js separately and maintain a combined eldarion-ajax.min.js version on top of that, which I reasoned should warrant a point release, however, I made the mistake of going to 0.9.0 instead of just 0.8.0.
 
 * Did a bunch of non-functional internal improvements
-** Added test suite with tests running across latest 4 versions of jQuery
-** Fixed issues identified by linting
-** Updated internal style
-** Added some documentation
-** Hooked up Travis CI integration
+  * Added test suite with tests running across latest 4 versions of jQuery
+  * Fixed issues identified by linting
+  * Updated internal style
+  * Added some documentation
+  * Hooked up Travis CI integration
 * Fixed bug in the fragments handlers 
 
 ## 0.8.0
