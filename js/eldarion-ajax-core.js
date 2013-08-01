@@ -73,15 +73,32 @@
     Ajax.prototype.click = function (e) {
         var $this = $(this),
             url = $this.attr('href'),
-            method = $this.data('method');
+            method = $this.data('method'),
+            data_str = $this.data('data'),
+            data = null,
+            keyval = null;
 
         if (!method) {
             method = 'get';
         }
 
+        if (data_str) {
+            data = {};
+            data_str.split(',').map(
+                function(pair) {
+                    keyval = pair.split(':');
+                    if (keyval[1].indexOf('#') === 0) {
+                        data[keyval[0]] = $(keyval[1]).val();
+                    } else {
+                        data[keyval[0]] = keyval[1];
+                    }
+                }
+            );
+        }
+
         e.preventDefault();
 
-        Ajax.prototype._ajax($this, url, method, null);
+        Ajax.prototype._ajax($this, url, method, data);
     };
 
     Ajax.prototype.submit = function (e) {

@@ -39,6 +39,15 @@ test("no data-method defined should send a GET request", 3, function () {
     equal(request.requestBody, null, 'request body is empty');
 });
 
+test("a tag can send data by defining data-data attribute", 3, function() {
+   $("#qunit-fixture a.message-data").trigger("click");
+   var request = this.requests[0];
+
+   equal(request.method, 'POST', 'request method is POST');
+   equal(request.url, '/test/message/data/', 'request url matches');
+   equal(request.requestBody, 'key1=Test+Value&key2=14', 'data is serialized');
+});
+
 test("X-Eldarion-Ajax header is set", 1, function () {
     $("#qunit-fixture a.message-default").trigger("click");
     var request = this.requests[0];
