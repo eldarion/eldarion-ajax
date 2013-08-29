@@ -64,6 +64,20 @@ test("form submit with method of POST should send a POST request", 3, function (
     equal(request.requestBody, "label=Test+Value&number=2", 'request body had the correct data');
 });
 
+test("form submit with method of POST should send a POST request with modified data", 3, function () {
+    $("#qunit-fixture .form-post").on("eldarion-ajax:modify-data", function(evt, data) {
+        var $form = $(evt.currentTarget);
+        $form.find("[name=label]").val("Changed Value");
+        return $form.serialize();
+    });
+    $("#qunit-fixture .form-post").trigger("submit");
+    var request = this.requests[0];
+
+    equal(request.method, 'POST', 'request method is POST');
+    equal(request.url, '/create/message/', 'request url matches');
+    equal(request.requestBody, "label=Changed+Value&number=2", 'request body had the correct data');
+});
+
 test("form submit with method of GET should send a GET request", 3, function () {
     $("#qunit-fixture .form-get").trigger("submit");
     var request = this.requests[0];

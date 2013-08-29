@@ -41,6 +41,10 @@
 
     Ajax.prototype._ajax = function ($el, url, method, data) {
         $el.trigger('eldarion-ajax:begin', [$el]);
+        var newData = $el.triggerHandler('eldarion-ajax:modify-data', data);
+        if (newData) {
+            data = newData;
+        }
         $.ajax({
             url: url,
             type: method,

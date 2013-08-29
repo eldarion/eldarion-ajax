@@ -85,6 +85,7 @@ behavior of eldarion-ajax.
 2. ```eldarion-ajax:success```
 3. ```eldarion-ajax:error```
 4. ```eldarion-ajax:complete```
+5. ```eldarion-ajax:modify-data```
 
 All events are triggered on the element that is declared to be ajax. For example,
 if you had a ```<a href="/tasks/2323/delete/" class="ajax" data-method="post">```
@@ -140,6 +141,16 @@ from reaching your listener.
 
 It is passed the element (even if it no longer exists in the DOM), a ```jaXHR```
 object, and ```textStatus```.
+
+
+### ```eldarion-ajax:modify-data```
+
+This is triggered with jQuery's `triggerHandler` so it functions more like a
+callback. If you listen for it, you have to listen on the same element that you
+have wired up to send AJAX data on as the event doesn't bubble up. Also, it will
+send the original data that it serialized as a parameter and if you want to
+change the data at all, you must return new data from the function handling the
+event. Otherwise, the original data will be used.
 
 
 ## Handlers: A Framework
