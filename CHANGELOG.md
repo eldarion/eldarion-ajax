@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 0.12.0
+
+* Added a triggerHandler for easy manipulation of data prior to sending to server
+
 ## 0.11.0
 
 * Added support for sending data with a.click
