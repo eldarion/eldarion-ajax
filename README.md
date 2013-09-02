@@ -93,7 +93,7 @@ link, the trigger would be fired on the ```<a>``` element. This, of course,
 bubbles up, but allows you to easily listen only for events on particular tags.
 
 Every event also sends as its first parameter, the element itself, in case you
-were listing at a higher level in the chain, you still would have easy access to
+were listening at a higher level in the chain, you still would have easy access to
 the relevant node.
 
 
