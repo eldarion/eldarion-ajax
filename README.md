@@ -128,7 +128,7 @@ the JSON data from the server:
 
 ### ```eldarion-ajax:error```
 
-This event sends a request for 400, 404, and 500 status codes.
+This event is triggered for 400, 404, and 500 status codes.
 
 
 ### ```eldarion-ajax:complete```
