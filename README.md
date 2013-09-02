@@ -112,7 +112,7 @@ A single argument is sent with this event and is the jQuery object for the node:
 
 ### ```eldarion-ajax:success```
 
-This is the event that is triggered once the server receives a successful
+This is the event that is triggered once the browser receives a successful
 response (status code 200) from the server. You can handle this in order to
 provide your own processors if the ones that ship by default do not meet your
 needs.
