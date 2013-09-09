@@ -93,7 +93,7 @@ link, the trigger would be fired on the ```<a>``` element. This, of course,
 bubbles up, but allows you to easily listen only for events on particular tags.
 
 Every event also sends as its first parameter, the element itself, in case you
-were listing at a higher level in the chain, you still would have easy access to
+were listening at a higher level in the chain, you still would have easy access to
 the relevant node.
 
 
@@ -112,7 +112,7 @@ A single argument is sent with this event and is the jQuery object for the node:
 
 ### ```eldarion-ajax:success```
 
-This is the event that is triggered once the server receives a successful
+This is the event that is triggered once the browser receives a successful
 response (status code 200) from the server. You can handle this in order to
 provide your own processors if the ones that ship by default do not meet your
 needs.
@@ -128,7 +128,7 @@ the JSON data from the server:
 
 ### ```eldarion-ajax:error```
 
-This event sends a request for 400, 404, and 500 status codes.
+This event is triggered for 400, 404, and 500 status codes.
 
 
 ### ```eldarion-ajax:complete```
