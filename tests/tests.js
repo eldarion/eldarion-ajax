@@ -111,11 +111,13 @@ module("Core Response Tests (jQuery " + jQuery.fn.jquery + ")", {
         this.server.respondWith("GET", "/test/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/test/message/no-data/", [200, {"Content-Type": "text/html"}, ""]);
         this.server.respondWith("GET", "/test/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("GET", "/test/message/403/", [403, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/503/", [503, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("POST", "/create/message/403/", [403, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/503/", [503, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
@@ -154,6 +156,17 @@ test("a.click with 400 status code fires eldarion-ajax:error", 3, function () {
         equal(statusCode, 400, 'statusCode was 400');
     });
     $("#qunit-fixture a.message-get-400").trigger("click");
+    this.server.respond();
+    $("#qunit-fixture").off("eldarion-ajax:error");
+});
+
+test("a.click with 403 status code fires eldarion-ajax:error", 3, function () {
+    $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
+        equal($el.data("method"), "get", 'request method is GET');
+        equal($el.attr("href"), '/test/message/403/', 'request url matches');
+        equal(statusCode, 403, 'statusCode was 403');
+    });
+    $("#qunit-fixture a.message-get-403").trigger("click");
     this.server.respond();
     $("#qunit-fixture").off("eldarion-ajax:error");
 });
@@ -215,6 +228,17 @@ test("form.submit with 400 status code fires eldarion-ajax:error", 3, function (
     $("#qunit-fixture").off("eldarion-ajax:error");
 });
 
+test("form.submit with 403 status code fires eldarion-ajax:error", 3, function () {
+    $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
+        equal($el.attr("method"), "post", 'request method is POST');
+        equal($el.attr("action"), '/create/message/403/', 'request url matches');
+        equal(statusCode, 403, 'statusCode was 403');
+    });
+    $("#qunit-fixture .form-post-403").trigger("submit");
+    this.server.respond();
+    $("#qunit-fixture").off("eldarion-ajax:error");
+});
+
 test("form.submit with 404 status code fires eldarion-ajax:error", 3, function () {
     $("#qunit-fixture").on("eldarion-ajax:error", function(evt, $el, statusCode) {
         equal($el.attr("method"), "post", 'request method is POST');
@@ -268,11 +292,13 @@ module("Handler Tests (jQuery " + jQuery.fn.jquery + ")", {
         this.server.respondWith("GET", "/test/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/test/message/no-data/", [200, {"Content-Type": "text/html"}, ""]);
         this.server.respondWith("GET", "/test/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("GET", "/test/message/403/", [403, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/503/", [503, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("POST", "/create/message/403/", [403, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/503/", [503, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
@@ -298,11 +324,13 @@ module("Blank Handler Tests (jQuery " + jQuery.fn.jquery + ")", {
         this.server.respondWith("GET", "/test/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/test/message/no-data/", [200, {"Content-Type": "text/html"}, ""]);
         this.server.respondWith("GET", "/test/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("GET", "/test/message/403/", [403, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("GET", "/test/message/503/", [503, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/", [200, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/400/", [400, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
+        this.server.respondWith("POST", "/create/message/403/", [403, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/404/", [404, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/500/", [500, {"Content-Type": "application/json"}, JSON.stringify(testData)]);
         this.server.respondWith("POST", "/create/message/503/", [503, {"Content-Type": "application/json"}, JSON.stringify(testData)]);

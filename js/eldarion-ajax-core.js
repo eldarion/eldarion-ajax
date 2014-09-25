@@ -64,6 +64,9 @@
                 400: function () {
                     $el.trigger('eldarion-ajax:error', [$el, 400]);
                 },
+                403: function () {
+                    $el.trigger('eldarion-ajax:error', [$el, 403]);
+                },
                 404: function () {
                     $el.trigger('eldarion-ajax:error', [$el, 404]);
                 }
