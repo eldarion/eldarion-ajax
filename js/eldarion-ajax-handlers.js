@@ -34,7 +34,17 @@
   strict:true, undef:true, unused:true, curly:true, browser:true, jquery:true,
   indent:4, maxerr:50 */
 
-(function ($) {
+(function (root, factory) {
+	'use strict';
+
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		factory(require('jquery'));
+	} else {
+		factory(root.jQuery);
+	}
+}(this, function ($) {
     'use strict';
 
     var Handlers = function () {};
@@ -128,4 +138,4 @@
         $(document).on('eldarion-ajax:success', '[data-clear-closest]', Handlers.prototype.clearClosest);
         $(document).on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
     });
-}(window.jQuery));
+}));
