@@ -34,7 +34,17 @@
   strict:true, undef:true, unused:true, curly:true, browser:true, jquery:true,
   indent:4, maxerr:50 */
 
-(function ($) {
+(function (root, factory) {
+	'use strict';
+
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		factory(require('jquery'));
+	} else {
+		factory(root.jQuery);
+	}
+}(this, function ($) {
     'use strict';
 
     var Ajax = function () {};
@@ -160,4 +170,4 @@
         $('[data-timeout]').each(Ajax.prototype.timeout);
         $('[data-interval]').each(Ajax.prototype.interval);
     });
-}(window.jQuery));
+}));

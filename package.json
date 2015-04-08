@@ -19,6 +19,9 @@
   "author": "Patrick Altman",
   "license": "BSD",
   "readmeFilename": "README.md",
+  "dependencies": {
+    "jquery": "*"
+  },
   "devDependencies": {
     "jshint": "2.1.4"
   }
