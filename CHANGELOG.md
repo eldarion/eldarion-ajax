@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 0.13.0
+
+* Fixed some typos in README (#78, #53)
+* Added support for handling 403 errors (#72)
+* Add UMD support (#77)
+
 ## 0.12.0
 
 * Added a triggerHandler for easy manipulation of data prior to sending to server
