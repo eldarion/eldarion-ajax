@@ -120,7 +120,7 @@ needs.
 Two arguments are passed with this event, the jQuery object for the node, and
 the JSON data from the server:
 
-    $(document).on("eldarion-ajax:success", [data-prepend-inner], function(evt, $el, data) {
+    $(document).on("eldarion-ajax:success", "[data-prepend-inner]", function(evt, $el, data) {
         var $node = $($el.data("prepend-inner"));
         $node.data(data.html + $node.html());
     });
