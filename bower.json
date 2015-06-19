@@ -3,7 +3,7 @@
   "version": "0.13.0",
   "main": "./js/eldarion-ajax.min.js",
   "dependencies": {
-    "jquery": "~1.8.3"
+    "jquery": ">=1.8.3"
   },
   "ignore": [
     "**/.*",
