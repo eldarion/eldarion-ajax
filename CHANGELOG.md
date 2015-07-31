@@ -1,5 +1,10 @@
 # ChangeLog
 
+## 0.14.0
+
+* Reintroduced file upload support using `FormData` if it is supported by the
+  browser, falling back to `form.serialize()` if not.
+
 ## 0.13.0
 
 * Fixed some typos in README (#78, #53)
@@ -37,7 +42,7 @@ This was a very minor release. Should have likely been a 0.7.3, except that I wa
   * Updated internal style
   * Added some documentation
   * Hooked up Travis CI integration
-* Fixed bug in the fragments handlers 
+* Fixed bug in the fragments handlers
 
 ## 0.8.0
 

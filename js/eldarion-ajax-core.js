@@ -1,23 +1,23 @@
 /* ====================================================================
- * eldarion-ajax-core.js v0.10.0
+ * eldarion-ajax-core.js v0.12.0
  * ====================================================================
- * Copyright (c) 2013, Eldarion, Inc.
+ * Copyright (c) 2015, Eldarion, Inc.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  *     * Redistributions of source code must retain the above copyright notice,
  *       this list of conditions and the following disclaimer.
- * 
+ *
  *     * Redistributions in binary form must reproduce the above copyright notice,
  *       this list of conditions and the following disclaimer in the documentation
  *       and/or other materials provided with the distribution.
- * 
+ *
  *     * Neither the name of Eldarion, Inc. nor the names of its contributors may
  *       be used to endorse or promote products derived from this software without
  *       specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -51,15 +51,28 @@
 
     Ajax.prototype._ajax = function ($el, url, method, data) {
         $el.trigger('eldarion-ajax:begin', [$el]);
-        var newData = $el.triggerHandler('eldarion-ajax:modify-data', data);
+        var newData = $el.triggerHandler('eldarion-ajax:modify-data', data),
+            contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
+            processData = true,
+            cache = true,
+            useFormData = typeof data === "object";
+
         if (newData) {
             data = newData;
+        }
+        if (useFormData) {
+            contentType = false;
+            processData = false;
+            cache = false;
         }
         $.ajax({
             url: url,
             type: method,
             dataType: 'json',
             data: data,
+            cache: cache,
+            processData: processData,
+            contentType: contentType,
             headers: {'X-Eldarion-Ajax': true},
             statusCode: {
                 200: function (responseData) {
@@ -121,12 +134,15 @@
     Ajax.prototype.submit = function (e) {
         var $this = $(this),
             url = $this.attr('action'),
-            method = $this.attr('method'),
-            data = $this.serialize();
+            method = $this.attr('method');
 
         e.preventDefault();
 
-        Ajax.prototype._ajax($this, url, method, data);
+        if (window.FormData === undefined) {
+            Ajax.prototype._ajax($this, url, method, $this.serialize());
+        } else {
+            Ajax.prototype._ajax($this, url, method, new FormData($this[0]));
+        }
     };
 
     Ajax.prototype.cancel = function (e) {
