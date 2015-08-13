@@ -1,5 +1,12 @@
 # ChangeLog
 
+## 0.15.0
+
+* Replaced `statusCode` and `complete` callbacks with Promise methods of the jqXHR object returned by `$.ajax()` (`.done()`, `.fail()`, and `.always()`) for more verbose response handling
+* Updated `package.json` `"jquery"` dependency to `">=1.8.3"` for consistency with `bower.json`
+* Bumped version of `eldarion-ajax-core.js` to 0.13.0
+* Updated `README.md` to reflect changes
+
 ## 0.14.0
 
 * Reintroduced file upload support using `FormData` if it is supported by the

@@ -1,6 +1,6 @@
 /* ====================================================================
  * eldarion-ajax.min.js v0.14.0
- * eldarion-ajax-core v0.12.0
+ * eldarion-ajax-core v0.13.0
  * eldarion-ajax-handlers v0.1.2
  * ====================================================================
  * Copyright (c) 2015, Eldarion, Inc.
