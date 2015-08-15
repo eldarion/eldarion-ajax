@@ -112,15 +112,11 @@ A single argument is sent with this event and is the jQuery object for the node:
 
 ### ```eldarion-ajax:success```
 
-This is the event that is triggered once the browser receives a successful
-response (status code 200) from the server. You can handle this in order to
-provide your own processors if the ones that ship by default do not meet your
-needs.
+This event is triggered if the request succeeds. Four arguments are passed with
+this event: the jQuery object; the data returned from the server; a string
+describing the status; and the jqXHR object:
 
-Two arguments are passed with this event, the jQuery object for the node, and
-the JSON data from the server:
-
-    $(document).on("eldarion-ajax:success", "[data-prepend-inner]", function(evt, $el, data) {
+    $(document).on("eldarion-ajax:success", "[data-prepend-inner]", function(evt, $el, data, textStatus, jqXHR) {
         var $node = $($el.data("prepend-inner"));
         $node.data(data.html + $node.html());
     });
@@ -128,19 +124,27 @@ the JSON data from the server:
 
 ### ```eldarion-ajax:error```
 
-This event is triggered for 400, 403, 404, and 500 status codes.
+This event is triggered if the request fails. Four arguments are also passed
+with this event: the jQuery object, the jqXHR object; a string describing the
+type of error that occurred; and an optional exception object. Possible values
+for the third argument (besides null) are "timeout", "error", "abort", and
+"parsererror". When an HTTP error occurs, the fourth argument receives the
+textual portion of the HTTP status, such as "Not Found" or "Internal Server
+Error."
 
 
 ### ```eldarion-ajax:complete```
 
-This gets sent on the completion of every ajax request no matter the status
-code and in addition to the events listing above. This is triggered from the
-document rather than the element in context as the handlers processing success
-messages could replace the DOM element and therefore would prevent the event
-from reaching your listener.
-
-It is passed the element (even if it no longer exists in the DOM), a ```jaXHR```
-object, and ```textStatus```.
+This event is triggered when the request finishes (after the above `success` and
+`error` events are completed). This is triggered from the document rather than
+the element in context as the handlers processing success messages could replace
+the DOM element and therefore would prevent the event from reaching your
+listener. The element is always passed as the first argument with this event
+(even if it no longer exists in the DOM). In response to a successful request,
+the arguments passed with this event are the same as those of the `success`
+event: the element, data, textStatus, and the jqXHR object. For failed requests
+the arguments are the same as those of the `error` event: the element, the jqXHR
+object, textStatus, and errorThrown.
 
 
 ### ```eldarion-ajax:modify-data```

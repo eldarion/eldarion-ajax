@@ -1,5 +1,5 @@
 /* ====================================================================
- * eldarion-ajax-core.js v0.12.0
+ * eldarion-ajax-core.js v0.13.0
  * ====================================================================
  * Copyright (c) 2015, Eldarion, Inc.
  * All rights reserved.
@@ -73,30 +73,16 @@
             cache: cache,
             processData: processData,
             contentType: contentType,
-            headers: {'X-Eldarion-Ajax': true},
-            statusCode: {
-                200: function (responseData) {
-                    if (!responseData) {
-                        responseData = {};
-                    }
-                    $el.trigger('eldarion-ajax:success', [$el, responseData]);
-                },
-                500: function () {
-                    $el.trigger('eldarion-ajax:error', [$el, 500]);
-                },
-                400: function () {
-                    $el.trigger('eldarion-ajax:error', [$el, 400]);
-                },
-                403: function () {
-                    $el.trigger('eldarion-ajax:error', [$el, 403]);
-                },
-                404: function () {
-                    $el.trigger('eldarion-ajax:error', [$el, 404]);
-                }
-            },
-            complete: function (jqXHR, textStatus) {
-                $(document).trigger('eldarion-ajax:complete', [$el, jqXHR, textStatus]);
+            headers: {'X-Eldarion-Ajax': true}
+        }).done( function (responseData, textStatus, jqXHR) {
+            if (!responseData) {
+                responseData = {};
             }
+            $el.trigger('eldarion-ajax:success', [$el, responseData, textStatus, jqXHR]);
+        }).fail( function (jqXHR, textStatus, errorThrown) {
+            $el.trigger('eldarion-ajax:error', [$el, jqXHR, textStatus, errorThrown]);
+        }).always( function (responseData, textStatus, jqXHR) {
+            $(document).trigger('eldarion-ajax:complete', [$el, responseData, textStatus, jqXHR]);
         });
     };
 
