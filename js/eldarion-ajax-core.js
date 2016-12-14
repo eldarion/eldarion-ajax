@@ -1,5 +1,5 @@
 /* ====================================================================
- * eldarion-ajax-core.js v0.13.0
+ * eldarion-ajax-core.js v0.14.0
  * ====================================================================
  * Copyright (c) 2015, Eldarion, Inc.
  * All rights reserved.
@@ -49,13 +49,12 @@
 
     var Ajax = function () {};
 
-    Ajax.prototype._ajax = function ($el, url, method, data) {
+    Ajax.prototype._ajax = function ($el, url, method, data, useFormData) {
         $el.trigger('eldarion-ajax:begin', [$el]);
         var newData = $el.triggerHandler('eldarion-ajax:modify-data', data),
             contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
             processData = true,
-            cache = true,
-            useFormData = typeof data === "object";
+            cache = true;
 
         if (newData) {
             data = newData;
@@ -127,7 +126,7 @@
         if (window.FormData === undefined) {
             Ajax.prototype._ajax($this, url, method, $this.serialize());
         } else {
-            Ajax.prototype._ajax($this, url, method, new FormData($this[0]));
+            Ajax.prototype._ajax($this, url, method, new FormData($this[0]), true);
         }
     };
 
