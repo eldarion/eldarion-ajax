@@ -326,3 +326,30 @@ describe('eldarion-ajax core', function() {
     $('body').off('eldarion-ajax:error');
   });
 });
+
+
+describe('eldarion-ajax handlers', function() {
+  'use strict';
+
+  beforeEach(function() {
+    jasmine.Ajax.install();
+    var e = new window.EldarionAjax();
+    e.init();
+    var h = new window.EldarionAjaxHandlers();
+    h.init();
+  });
+
+  afterEach(function() {
+    jasmine.Ajax.uninstall();
+  });
+
+  it('a.click with data-replace-inner response populates div.message', function () {
+    var container = affix('.container');
+    container.affix('.message');
+    container.affix('a.ajax[data-replace-inner=".message"][href="/message/"]');
+    $('a.ajax').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.message').html()).toBe('My simple content');
+  });
+});
