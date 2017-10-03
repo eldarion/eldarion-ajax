@@ -1,6 +1,46 @@
 /* eslint-env jasmine */
 /* globals $ affix require FormData */
 
+var testData = JSON.stringify({'html': 'My simple content'});
+var jsonHeader = {'Content-Type': 'application/json'};
+var responses = {
+  message200: {
+    header: jsonHeader,
+    status: 200,
+    responseText: testData
+  },
+  message200NoData: {
+    header: jsonHeader,
+    status: 200,
+    responseText: ''
+  },
+  message400: {
+    header: jsonHeader,
+    status: 400,
+    responseText: testData
+  },
+  message403: {
+    header: jsonHeader,
+    status: 403,
+    responseText: testData
+  },
+  message404: {
+    header: jsonHeader,
+    status: 404,
+    responseText: testData
+  },
+  message500: {
+    header: jsonHeader,
+    status: 500,
+    responseText: testData
+  },
+  message503: {
+    header: jsonHeader,
+    status: 503,
+    responseText: testData
+  }
+};
+
 describe('eldarion-ajax core', function() {
   'use strict';
 
@@ -70,10 +110,10 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('POST');
     expect(request.url).toBe('/create/message/');
     if (data.get === undefined) {
-      expect(data).toEqual('label=Test%20Value&number=2');
+      expect(data).toBe('label=Test%20Value&number=2');
     } else {
-      expect(data.get('label')).toEqual('Test Value');
-      expect(data.get('number')).toEqual('2');
+      expect(data.get('label')).toBe('Test Value');
+      expect(data.get('number')).toBe('2');
     }
   });
 
@@ -91,7 +131,7 @@ describe('eldarion-ajax core', function() {
     var data = request.params;
     expect(request.method).toBe('POST');
     expect(request.url).toBe('/create/message/');
-    expect(data).toEqual('label=Changed%20Value&number=2');
+    expect(data).toBe('label=Changed%20Value&number=2');
   });
 
   it('form submit with method of GET should send a GET request', function () {
@@ -118,5 +158,169 @@ describe('eldarion-ajax core', function() {
     });
     affix('form[class="form-post ajax"]').submit();
     $('body').off('eldarion-ajax:begin');
+  });
+
+  // Response Tests
+  it('a.click with 200 status code fires eldarion-ajax:success', function () {
+    $('body').on('eldarion-ajax:success', function(evt, $el, data) {
+      expect($el.attr('href')).toBe('/test/message/');
+      expect(data.html).toBe('My simple content');
+    });
+    affix('a.message-get.ajax[href="/test/message/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    $('body').off('eldarion-ajax:success');
+  });
+
+  it('a.click with 200 status code fires eldarion-ajax:success with default data', function () {
+    $('body').on('eldarion-ajax:success', function(evt, $el, data) {
+      expect($el.data('method')).toBe('post');
+      expect($el.attr('href')).toBe('/test/message/no-data/');
+      expect(data).toBe('');
+    });
+    affix('a.message-post-no-data.ajax[data-method="post"][href="/test/message/no-data/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200NoData);
+    $('body').off('eldarion-ajax:success');
+  });
+
+  it('a.click with 400 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('href')).toBe('/test/message/400/');
+      expect(xhr.status).toBe(400);
+    });
+    affix('a.message-get-400.ajax[href="/test/message/400/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message400);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('a.click with 403 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('href')).toBe('/test/message/403/');
+      expect(xhr.status).toBe(403);
+    });
+    affix('a.message-get-403.ajax[href="/test/message/403/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message403);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('a.click with 404 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('href')).toBe('/test/message/404/');
+      expect(xhr.status).toBe(404);
+    });
+    affix('a.message-get-404.ajax[href="/test/message/404/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message404);
+    $('body').off('eldarion-ajax:error');
+  });
+
+
+  it('a.click with 500 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('href')).toBe('/test/message/500/');
+      expect(xhr.status).toBe(500);
+    });
+    affix('a.message-get-500.ajax[href="/test/message/500/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message500);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('a.click with 503 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('href')).toBe('/test/message/503/');
+      expect(xhr.status).toBe(503);
+    });
+    affix('a.message-get-503.ajax[href="/test/message/503/"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message503);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('form.submit with 200 status code fires eldarion-ajax:success', function () {
+    $('body').on('eldarion-ajax:success', function(evt, $el, data) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/create/message/');
+      expect(data.html).toBe('My simple content');
+    });
+    affix('form.ajax[method="post"][action="/create/message/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    $('body').off('eldarion-ajax:success');
+  });
+
+  it('form.submit with 200 status code fires eldarion-ajax:success with default data', function () {
+    $('body').on('eldarion-ajax:success', function(evt, $el, data) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/test/message/no-data/');
+      expect(data).toBe('');
+    });
+    affix('form.ajax[method=post][action="/test/message/no-data/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200NoData);
+    $('body').off('eldarion-ajax:success');
+  });
+
+  it('form.submit with 400 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/create/message/400/');
+      expect(xhr.status).toBe(400);
+    });
+    affix('form.ajax[method="post"][action="/create/message/400/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message400);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('form.submit with 403 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/create/message/403/');
+      expect(xhr.status).toBe(403);
+    });
+    affix('form.ajax[method="post"][action="/create/message/403/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message403);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('form.submit with 404 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/create/message/404/');
+      expect(xhr.status).toBe(404);
+    });
+    affix('form.ajax[method="post"][action="/create/message/404/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message404);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('form.submit with 500 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/create/message/500/');
+      expect(xhr.status).toBe(500);
+    });
+    affix('form.ajax[method="post"][action="/create/message/500/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message500);
+    $('body').off('eldarion-ajax:error');
+  });
+
+  it('form.submit with 503 status code fires eldarion-ajax:error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
+      expect($el.attr('method')).toBe('post');
+      expect($el.attr('action')).toBe('/create/message/503/');
+      expect(xhr.status).toBe(503);
+    });
+    affix('form.ajax[method="post"][action="/create/message/503/"]').submit();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message503);
+    $('body').off('eldarion-ajax:error');
   });
 });
