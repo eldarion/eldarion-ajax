@@ -35,6 +35,7 @@
     "jshint": "2.1.4",
     "karma": "^1.7.1",
     "karma-cli": "^1.0.1",
+    "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-jquery": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.4",

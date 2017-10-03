@@ -6,7 +6,12 @@ module.exports = function(config) {
   'use strict';
 
   config.set({
-    plugins: ['karma-jquery', 'karma-jasmine', 'karma-phantomjs-launcher'],
+    plugins: [
+      'karma-jquery',
+      'karma-jasmine',
+      'karma-phantomjs-launcher',
+      'karma-coverage'
+    ],
     basePath: '',
     frameworks: ['jasmine', 'jquery-3.2.1'],
     files: [
@@ -18,8 +23,9 @@ module.exports = function(config) {
     exclude: [
     ],
     preprocessors: {
+      '../src/*.js': ['coverage']
     },
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
