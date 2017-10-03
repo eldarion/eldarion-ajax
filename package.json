@@ -28,6 +28,7 @@
     "jquery": ">=1.8.3"
   },
   "devDependencies": {
+    "codecov": "^2.3.0",
     "eslint": "4.8.0",
     "jasmine-ajax": "3.3.1",
     "jasmine-core": "2.8.0",

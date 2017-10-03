@@ -9,14 +9,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
-      - run: yarn install
-      - run: yarn add codecov
+            - v4-dependencies-{{ checksum "package.json" }}
+      - run: npm install
       - save_cache:
           paths:
             - node_modules
-          key: v3-dependencies-{{ checksum "package.json" }}
-      - run: yarn test
+          key: v4-dependencies-{{ checksum "package.json" }}
+      - run: npm test
       - run:
           name: upload coverage reports
           command: ./node_modules/.bin/codecov
