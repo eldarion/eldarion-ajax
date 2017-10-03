@@ -2,7 +2,7 @@
 
 This is a plugin that Eldarion uses for all of its AJAX work.
 
-[![Build Status](https://travis-ci.org/eldarion/eldarion-ajax.png)](https://travis-ci.org/eldarion/eldarion-ajax)
+[![CircleCI](https://circleci.com/gh/eldarion/eldarion-ajax.svg?style=svg)](https://circleci.com/gh/eldarion/eldarion-ajax)
 
 No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over
 again for each snippet of AJAX that you want to support. Easily extend support
@@ -26,7 +26,7 @@ is also online at http://uk013.gondor.co/
 jQuery is required for this library so make sure it is included somewhere on the
 page prior to the inclusion of ``eldarion-ajax.min.js``.
 
-Copy ```js/eldarion-ajax.min.js``` to where you keep your web sites static 
+Copy ```js/eldarion-ajax.min.js``` to where you keep your web sites static
 media and the include them in your HTML:
 
     <script src="/js/eldarion-ajax.js"></script>
@@ -166,11 +166,11 @@ writing your own.
 
     $(function ($) {
         CustomHandlers = {};
-        
+
         CustomHandlers.prototype.replaceFadeIn = function (e, $el, data) {
             $($el.data("replace-fade-in")).replaceWith(data.html).hide().fadeIn();
         };
-        
+
         $(function() {
             $(document).on("eldarion-ajax:success", "[data-replace-fade-in]", CustomHandlers.prototype.replaceFadeIn);
         });
@@ -254,7 +254,7 @@ attribute:
 </a>
 ```
 
-In this example, the ```.done-list``` will be appended to with the ```data.html``` returns from 
+In this example, the ```.done-list``` will be appended to with the ```data.html``` returns from
 the AJAX post made as a result of clicking the button and simultaneously, the ```.done-score```
 will refresh itself by fetching (GET) JSON from the url defined in ```data-refresh-url``` and
 replacing itself with the contents of ```data.html``` that is returned.
