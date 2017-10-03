@@ -32,7 +32,6 @@
     "jasmine-ajax": "3.3.1",
     "jasmine-core": "2.8.0",
     "jasmine-fixture": "2.0.0",
-    "jshint": "2.1.4",
     "karma": "1.7.1",
     "karma-cli": "1.0.1",
     "karma-coverage": "1.1.1",
