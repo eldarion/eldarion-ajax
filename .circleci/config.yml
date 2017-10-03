@@ -35,7 +35,21 @@ jobs:
       - run: yard lint
 
   jquery321:
-    <<: *common
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn test
 
 
 workflows:
