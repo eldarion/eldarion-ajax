@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "lint": "eslint src/eldarion-ajax-core.js src/eldarion-ajax-handlers.js tests/Spec.js",
+    "lint": "eslint src/eldarion-ajax-core.js src/eldarion-ajax-handlers.js tests/specs.js",
     "jasmine": "karma start tests/config.js --single-run",
     "release": "npm run uglify && npm run add-banner",
     "add-banner": "node banner.js",

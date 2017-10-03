@@ -1,6 +1,24 @@
 version: 2
+
+common: &common
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:7.10
+  steps:
+    - checkout
+    - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+    - run: yarn install
+    - save_cache:
+        paths:
+          - node_modules
+        key: v1-dependencies-{{ checksum "package.json" }}
+    - run: yarn test
+
 jobs:
-  build:
+  lint:
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo
@@ -8,13 +26,24 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn test
+      - run: yard lint
 
+  jquery321:
+    <<: *common
+
+
+workflows:
+  version: 2
+  lint-and-test:
+    jobs:
+      - lint
+      - jquery321:
+          requires:
+            - lint:
 
