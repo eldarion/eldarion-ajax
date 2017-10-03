@@ -3,6 +3,7 @@
 This is a plugin that Eldarion uses for all of its AJAX work.
 
 [![CircleCI](https://circleci.com/gh/eldarion/eldarion-ajax.svg?style=svg)](https://circleci.com/gh/eldarion/eldarion-ajax)
+[![codecov](https://codecov.io/gh/eldarion/eldarion-ajax/branch/master/graph/badge.svg)](https://codecov.io/gh/eldarion/eldarion-ajax)
 
 No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over
 again for each snippet of AJAX that you want to support. Easily extend support
