@@ -18,8 +18,7 @@ Twitter Bootstrap was tenuous at best so we thought it best to rename to
 
 ## Demo
 
-There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/ which
-is also online at http://uk013.gondor.co/
+There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/.
 
 
 ## Installation
