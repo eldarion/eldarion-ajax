@@ -21,7 +21,7 @@ module.exports = function(config) {
 
       '../node_modules/jasmine-ajax/lib/mock-ajax.js',
       '../node_modules/jasmine-fixture/dist/jasmine-fixture.min.js',
-      'specs/*.js'
+      'specs.js'
     ],
 
 

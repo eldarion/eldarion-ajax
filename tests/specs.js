@@ -1,8 +1,8 @@
 /* eslint-env jasmine */
 /* globals $ affix require FormData */
 
-var testData = JSON.stringify({'html': 'My simple content'});
-var jsonHeader = {'Content-Type': 'application/json'};
+var testData = JSON.stringify({ html: 'My simple content' });
+var jsonHeader = { 'Content-Type': 'application/json' };
 var responses = {
   message200: {
     header: jsonHeader,
@@ -172,16 +172,17 @@ describe('eldarion-ajax core', function() {
     $('body').off('eldarion-ajax:success');
   });
 
-  it('a.click with 200 status code fires eldarion-ajax:success with default data', function () {
-    $('body').on('eldarion-ajax:success', function(evt, $el, data) {
+  it('a.click with 200 status code fires eldarion-ajax:error for blank response data', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
       expect($el.data('method')).toBe('post');
       expect($el.attr('href')).toBe('/test/message/no-data/');
-      expect(data).toBe('');
+      expect(xhr.status).toBe(200);
+      expect(xhr.statusText).toBe('parsererror');
     });
-    affix('a.message-post-no-data.ajax[data-method="post"][href="/test/message/no-data/"]').click();
+    affix('a.ajax[data-method="post"][href="/test/message/no-data/"]').click();
     var request = jasmine.Ajax.requests.mostRecent();
     request.respondWith(responses.message200NoData);
-    $('body').off('eldarion-ajax:success');
+    $('body').off('eldarion-ajax:error');
   });
 
   it('a.click with 400 status code fires eldarion-ajax:error', function () {
@@ -252,16 +253,17 @@ describe('eldarion-ajax core', function() {
     $('body').off('eldarion-ajax:success');
   });
 
-  it('form.submit with 200 status code fires eldarion-ajax:success with default data', function () {
-    $('body').on('eldarion-ajax:success', function(evt, $el, data) {
+  it('form.submit with 200 status code fires eldarion-ajax:error with parser error', function () {
+    $('body').on('eldarion-ajax:error', function(evt, $el, xhr) {
       expect($el.attr('method')).toBe('post');
       expect($el.attr('action')).toBe('/test/message/no-data/');
-      expect(data).toBe('');
+      expect(xhr.status).toBe(200);
+      expect(xhr.statusText).toBe('parsererror');
     });
     affix('form.ajax[method=post][action="/test/message/no-data/"]').submit();
     var request = jasmine.Ajax.requests.mostRecent();
     request.respondWith(responses.message200NoData);
-    $('body').off('eldarion-ajax:success');
+    $('body').off('eldarion-ajax:error');
   });
 
   it('form.submit with 400 status code fires eldarion-ajax:error', function () {
