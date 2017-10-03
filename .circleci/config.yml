@@ -15,4 +15,4 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yard test
+      - run: yarn test
