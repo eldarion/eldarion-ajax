@@ -19,4 +19,4 @@ jobs:
       - run: yarn test
       - run:
           name: upload coverage reports
-          command: ./node_modules/.bin/codecov --file tests/coverage/report.json
+          command: ./node_modules/.bin/codecov

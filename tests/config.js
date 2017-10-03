@@ -39,7 +39,7 @@ module.exports = function(config) {
         {
           type: 'json',
           subdir: '.',
-          file: 'report.json'
+          file: 'coverage.json'
         },
         {
           type: 'html',
