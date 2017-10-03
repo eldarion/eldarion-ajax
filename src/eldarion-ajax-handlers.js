@@ -105,6 +105,23 @@
     $(document).on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
   };
 
+  Handlers.prototype.remove = function () {
+    $(document).off('eldarion-ajax:success', Handlers.prototype.redirect);
+    $(document).off('eldarion-ajax:success', Handlers.prototype.fragments);
+    $(document).off('eldarion-ajax:success', '[data-replace]', Handlers.prototype.replace);
+    $(document).off('eldarion-ajax:success', '[data-replace-closest]', Handlers.prototype.replaceClosest);
+    $(document).off('eldarion-ajax:success', '[data-replace-inner]', Handlers.prototype.replaceInner);
+    $(document).off('eldarion-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner);
+    $(document).off('eldarion-ajax:success', '[data-append]', Handlers.prototype.append);
+    $(document).off('eldarion-ajax:success', '[data-prepend]', Handlers.prototype.prepend);
+    $(document).off('eldarion-ajax:success', '[data-refresh]', Handlers.prototype.refresh);
+    $(document).off('eldarion-ajax:success', '[data-refresh-closest]', Handlers.prototype.refreshClosest);
+    $(document).off('eldarion-ajax:success', '[data-clear]', Handlers.prototype.clear);
+    $(document).off('eldarion-ajax:success', '[data-remove]', Handlers.prototype.remove);
+    $(document).off('eldarion-ajax:success', '[data-clear-closest]', Handlers.prototype.clearClosest);
+    $(document).off('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
+  };
+
   $(function () {
     Handlers.prototype.init();
   });

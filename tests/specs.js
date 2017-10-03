@@ -1,5 +1,7 @@
 /* eslint-env jasmine */
 /* globals $ affix done require FormData */
+var eldarionAjax = new window.EldarionAjax();
+var eldarionAjaxHandlers = new window.EldarionAjaxHandlers();
 
 var testData = JSON.stringify({ html: 'My simple content' });
 var jsonHeader = { 'Content-Type': 'application/json' };
@@ -46,20 +48,19 @@ describe('eldarion-ajax core', function() {
 
   beforeEach(function() {
     jasmine.Ajax.install();
-    var e = new window.EldarionAjax();
-    e.init();
+    eldarionAjax.init();
   });
 
   afterEach(function() {
     jasmine.Ajax.uninstall();
+    eldarionAjax.remove();
   });
 
   it('data-timeout defaults to get method', function() {
     jasmine.clock().install();
 
     affix('[data-timeout=1][data-url="/something/"]');
-    var e = new window.EldarionAjax();
-    e.init();
+    eldarionAjax.init();
 
     jasmine.clock().tick(10);
 
@@ -68,14 +69,15 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('GET');
 
     jasmine.clock().uninstall();
+
+    eldarionAjax.remove();
   });
 
   it('data-interval defaults to get method', function() {
     jasmine.clock().install();
 
     affix('[data-interval=1][data-url="/something/"]');
-    var e = new window.EldarionAjax();
-    e.init();
+    eldarionAjax.init();
 
     jasmine.clock().tick(10);
 
@@ -84,14 +86,14 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('GET');
 
     jasmine.clock().uninstall();
+    eldarionAjax.remove();
   });
 
   it('data-timeout with data-method as post sends POST', function() {
     jasmine.clock().install();
 
     affix('[data-timeout=1][data-url="/something/"][data-method="post"]');
-    var e = new window.EldarionAjax();
-    e.init();
+    eldarionAjax.init();
 
     jasmine.clock().tick(10);
 
@@ -100,14 +102,14 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('POST');
 
     jasmine.clock().uninstall();
+    eldarionAjax.remove();
   });
 
   it('data-interval with data-method as post sends POST', function() {
     jasmine.clock().install();
 
     affix('[data-interval=1][data-url="/something/"][data-method="post"]');
-    var e = new window.EldarionAjax();
-    e.init();
+    eldarionAjax.init();
 
     jasmine.clock().tick(10);
 
@@ -116,6 +118,7 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('POST');
 
     jasmine.clock().uninstall();
+    eldarionAjax.remove();
   });
 
   it('data-method with value of POST should send a POST request', function() {
@@ -387,29 +390,39 @@ describe('eldarion-ajax core', function() {
   });
 });
 
-
 describe('eldarion-ajax handlers', function() {
   'use strict';
 
   beforeEach(function() {
     jasmine.Ajax.install();
-    var e = new window.EldarionAjax();
-    e.init();
-    var h = new window.EldarionAjaxHandlers();
-    h.init();
+    eldarionAjax.init();
+    eldarionAjaxHandlers.init();
+    var container = affix('.container');
+    container.affix('.message');
   });
 
   afterEach(function() {
     jasmine.Ajax.uninstall();
+    eldarionAjax.remove();
+    eldarionAjaxHandlers.remove();
   });
 
   it('a.click with data-replace-inner response populates div.message', function () {
-    var container = affix('.container');
-    container.affix('.message');
-    container.affix('a.ajax[data-replace-inner=".message"][href="/message/"]');
-    $('a.ajax').click();
+    var a = affix('a.ajax[data-replace-inner=".message"][href="/message/"]');
+    a.click();
     var request = jasmine.Ajax.requests.mostRecent();
     request.respondWith(responses.message200);
     expect($('.message').html()).toBe('My simple content');
+  });
+
+  it('a.click with data-append response adds to div.message', function () {
+    var a = affix('a.append.ajax[data-append=".message"][href="/message/"]');
+    a.click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    a.click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.message').html()).toBe('My simple contentMy simple content');
   });
 });

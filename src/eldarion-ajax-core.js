@@ -119,7 +119,8 @@
       method = 'get';
     }
 
-    window.setTimeout(Ajax.prototype._ajax, timeout, $el, url, method, null);
+    var id = window.setTimeout(Ajax.prototype._ajax, timeout, $el, url, method, null);
+    $el.data('timeout-id', id);
   };
 
   Ajax.prototype.interval = function (i, el) {
@@ -132,7 +133,8 @@
       method = 'get';
     }
 
-    window.setInterval(Ajax.prototype._ajax, interval, $el, url, method, null);
+    var id = window.setInterval(Ajax.prototype._ajax, interval, $el, url, method, null);
+    $el.data('interval-id', id);
   };
 
   Ajax.prototype.init = function () {
@@ -142,6 +144,19 @@
 
     $('[data-timeout]').each(Ajax.prototype.timeout);
     $('[data-interval]').each(Ajax.prototype.interval);
+  };
+
+  Ajax.prototype.remove = function () {
+    $('body').off('click', 'a.ajax', Ajax.prototype.click);
+    $('body').off('submit', 'form.ajax', Ajax.prototype.submit);
+    $('body').off('click', 'a[data-cancel-closest]', Ajax.prototype.cancel);
+
+    $('[data-timeout]').each(function (i, el) {
+      window.clearTimeout($(el).data('timeout-id'));
+    });
+    $('[data-interval]').each(function (i, el) {
+      window.clearInterval($(el).data('interval-id'));
+    });
   };
 
   $(function () {
