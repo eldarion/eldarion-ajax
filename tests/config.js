@@ -32,6 +32,20 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: ['PhantomJS'],
     singleRun: false,
-    concurrency: Infinity
+    concurrency: Infinity,
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [
+        {
+          type: 'json',
+          subdir: '.',
+          file: 'report.json'
+        },
+        {
+          type: 'html',
+          subdir: 'report-html'
+        }
+      ]
+    }
   });
 };
