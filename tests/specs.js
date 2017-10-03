@@ -1,5 +1,5 @@
 /* eslint-env jasmine */
-/* globals $ affix require FormData */
+/* globals $ affix done require FormData */
 
 var testData = JSON.stringify({ html: 'My simple content' });
 var jsonHeader = { 'Content-Type': 'application/json' };
@@ -54,8 +54,68 @@ describe('eldarion-ajax core', function() {
     jasmine.Ajax.uninstall();
   });
 
-  it('contains spec with an expectation', function() {
-    expect(true).toBe(true);
+  it('data-timeout defaults to get method', function() {
+    jasmine.clock().install();
+
+    affix('[data-timeout=1][data-url="/something/"]');
+    var e = new window.EldarionAjax();
+    e.init();
+
+    jasmine.clock().tick(10);
+
+    var request = jasmine.Ajax.requests.mostRecent();
+    expect(request.url).toBe('/something/');
+    expect(request.method).toBe('GET');
+
+    jasmine.clock().uninstall();
+  });
+
+  it('data-interval defaults to get method', function() {
+    jasmine.clock().install();
+
+    affix('[data-interval=1][data-url="/something/"]');
+    var e = new window.EldarionAjax();
+    e.init();
+
+    jasmine.clock().tick(10);
+
+    var request = jasmine.Ajax.requests.mostRecent();
+    expect(request.url).toBe('/something/');
+    expect(request.method).toBe('GET');
+
+    jasmine.clock().uninstall();
+  });
+
+  it('data-timeout with data-method as post sends POST', function() {
+    jasmine.clock().install();
+
+    affix('[data-timeout=1][data-url="/something/"][data-method="post"]');
+    var e = new window.EldarionAjax();
+    e.init();
+
+    jasmine.clock().tick(10);
+
+    var request = jasmine.Ajax.requests.mostRecent();
+    expect(request.url).toBe('/something/');
+    expect(request.method).toBe('POST');
+
+    jasmine.clock().uninstall();
+  });
+
+  it('data-interval with data-method as post sends POST', function() {
+    jasmine.clock().install();
+
+    affix('[data-interval=1][data-url="/something/"][data-method="post"]');
+    var e = new window.EldarionAjax();
+    e.init();
+
+    jasmine.clock().tick(10);
+
+    var request = jasmine.Ajax.requests.mostRecent();
+    expect(request.url).toBe('/something/');
+    expect(request.method).toBe('POST');
+
+    jasmine.clock().uninstall();
   });
 
   it('data-method with value of POST should send a POST request', function() {
