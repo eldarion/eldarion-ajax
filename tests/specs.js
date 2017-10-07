@@ -625,7 +625,7 @@ describe('eldarion-ajax handlers', function() {
     var refreshRequest = jasmine.Ajax.requests.mostRecent();
     refreshRequest.respondWith(responses.messageRefresh);
     expect($('a').length).toBe(0);
-    expect($('.content-container').length).toBe(0)
+    expect($('.content-container').length).toBe(0);
     expect($('#refreshed-content').length).toBe(1);
     expect($('#refreshed-content').text()).toBe('Refreshed Content');
   });
