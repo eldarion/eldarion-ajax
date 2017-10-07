@@ -24,6 +24,16 @@ Twitter Bootstrap was tenuous at best so we thought it best to rename to
 * [bootstrap-ajax renamed to eldarion-ajax](http://eldarion.com/blog/2013/07/12/bootstrap-ajax-renamed-eldarion-ajax/)
 * [Twitter Bootstrap and AJAX](http://paltman.com/twitter-bootstrap-and-ajax/)
 
+### Other Mentions
+
+* [Add an AJAX Cart Button to Miva Merchant](http://www.scotsscripts.com/blog/add-an-ajax-cart-button-to-miva-merchant.html)
+* [Web development for startups - part 3 (the frontend)](http://www.clickcoder.com/web-development-for-startups-part-3-the-frontend/)
+* [20 Plugins for Extending Bootstrap](https://pixel77.com/20-plugins-extending-bootstrap/)
+* [Why I don't like jquery-ujs](http://macr.ae/article/jquery-ujs.html)
+* [50 Must-have plugins for extending Twitter Bootstrap](https://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap)
+* [Plugins for Bootstrap to extend its possibilities](https://netstudy.zlabs.be/40-plugins-for-bootstrap-to-extend-its-possibilities/)
+
+
 ## Demo
 
 There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/.
