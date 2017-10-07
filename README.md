@@ -16,6 +16,13 @@ This project used to be called **bootstrap-ajax** but the connection with
 Twitter Bootstrap was tenuous at best so we thought it best to rename to
 *eldarion-ajax*.
 
+## Blog Posts
+
+* [An Ajax UX Pattern for Creating, Updating, and Ordering Items](http://eldarion.com/blog/2017/10/06/ux-pattern-creating-updating-and-ordering-items/)
+* [Building Cloudspotting Part 1](http://eldarion.com/blog/2016/05/02/building-cloudspotting-part-1/) and [Part 2](http://eldarion.com/blog/2016/05/24/building-cloudspotting-part-2/)
+* [Timeouts and Intervals in eldarion-ajax](http://eldarion.com/blog/2013/07/23/timeouts-and-intervals-eldarion-ajax/)
+* [bootstrap-ajax renamed to eldarion-ajax](http://eldarion.com/blog/2013/07/12/bootstrap-ajax-renamed-eldarion-ajax/)
+
 ## Demo
 
 There is a demo project at https://github.com/eldarion/eldarion-ajax-demo/.
