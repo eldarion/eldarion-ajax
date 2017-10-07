@@ -22,6 +22,7 @@ Twitter Bootstrap was tenuous at best so we thought it best to rename to
 * [Building Cloudspotting Part 1](http://eldarion.com/blog/2016/05/02/building-cloudspotting-part-1/) and [Part 2](http://eldarion.com/blog/2016/05/24/building-cloudspotting-part-2/)
 * [Timeouts and Intervals in eldarion-ajax](http://eldarion.com/blog/2013/07/23/timeouts-and-intervals-eldarion-ajax/)
 * [bootstrap-ajax renamed to eldarion-ajax](http://eldarion.com/blog/2013/07/12/bootstrap-ajax-renamed-eldarion-ajax/)
+* [Twitter Bootstrap and AJAX](http://paltman.com/twitter-bootstrap-and-ajax/)
 
 ## Demo
 
