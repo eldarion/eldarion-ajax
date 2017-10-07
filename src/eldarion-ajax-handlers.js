@@ -16,6 +16,7 @@
   var Handlers = function () {};
 
   Handlers.prototype.redirect = function(e, $el, data) {
+    /* istanbul ignore next */ // Not testable; at least I haven't been able to figure it out
     if (data.location) {
       window.location.href = data.location;
       return false;

@@ -40,6 +40,47 @@ var responses = {
     header: jsonHeader,
     status: 503,
     responseText: testData
+  },
+  messageFragments: {
+    header: jsonHeader,
+    status: 200,
+    responseText: JSON.stringify({
+      fragments: {
+        '#replace-me': '<div id="replace-me">Replaced Content</div>'
+      }
+    })
+  },
+  messageInnerFragments: {
+    header: jsonHeader,
+    status: 200,
+    responseText: JSON.stringify({
+      'inner-fragments': {
+        '#replace-me': '<div id="inner-div">Replaced Content</div>'
+      }
+    })
+  },
+  messageAppendFragments: {
+    header: jsonHeader,
+    status: 200,
+    responseText: JSON.stringify({
+      'append-fragments': {
+        'ul.append-to': '<li id="li-3">Appended Content</li>'
+      }
+    })
+  },
+  messagePrependFragments: {
+    header: jsonHeader,
+    status: 200,
+    responseText: JSON.stringify({
+      'prepend-fragments': {
+        'ul.prepend-to': '<li id="li-1">Prepended Content</li>'
+      }
+    })
+  },
+  messageRefresh: {
+    header: jsonHeader,
+    status: 200,
+    responseText: JSON.stringify({ html: '<div id="refreshed-content">Refreshed Content</div>' })
   }
 };
 
@@ -510,5 +551,82 @@ describe('eldarion-ajax handlers', function() {
     request.respondWith(responses.message200);
     expect($('.my-content').length).toBe(0);
     expect($('a').length).toBe(0);
+  });
+
+  it('fragments replace their selectors', function () {
+    var container = affix('.content-container');
+    container.affix('div[id="replace-me"]').text('Nothing');
+    container.affix('a[class="ajax"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.messageFragments);
+    expect($('#replace-me').length).toBe(1);
+    expect($('#replace-me').text()).toBe('Replaced Content');
+  });
+
+  it('inner fragments replace the inside of selectors', function () {
+    var container = affix('.content-container');
+    container.affix('div[id="replace-me"]').text('Nothing');
+    container.affix('a[class="ajax"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.messageInnerFragments);
+    expect($('#replace-me #inner-div').length).toBe(1);
+    expect($('#replace-me #inner-div').text()).toBe('Replaced Content');
+  });
+
+  it('append fragments add to their selectors', function () {
+    var container = affix('.content-container');
+    var ul = container.affix('ul.append-to');
+    ul.affix('li[id="id-1"]').text('1');
+    ul.affix('li[id="id-2"]').text('2');
+    container.affix('a[class="ajax"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.messageAppendFragments);
+    expect($('ul.append-to').length).toBe(1);
+    expect($('ul.append-to li').length).toBe(3);
+    expect($('ul.append-to li')[2].innerText).toBe('Appended Content');
+  });
+
+  it('prepend fragments add to their selectors', function () {
+    var container = affix('.content-container');
+    var ul = container.affix('ul.prepend-to');
+    ul.affix('li[id="id-2"]').text('2');
+    ul.affix('li[id="id-3"]').text('3');
+    container.affix('a[class="ajax"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.messagePrependFragments);
+    expect($('ul.prepend-to').length).toBe(1);
+    expect($('ul.prepend-to li').length).toBe(3);
+    expect($('ul.prepend-to li')[0].innerText).toBe('Prepended Content');
+  });
+
+  it('data-refresh triggers another pull of content from server to update selector content', function () {
+    var container = affix('.content-container');
+    container.affix('.refresh-me[data-refresh-url="/refresh/"]');
+    container.affix('a[class="ajax"][data-refresh=".refresh-me"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200NoData);
+    var refreshRequest = jasmine.Ajax.requests.mostRecent();
+    refreshRequest.respondWith(responses.messageRefresh);
+    expect($('#refreshed-content').length).toBe(1);
+    expect($('#refreshed-content').text()).toBe('Refreshed Content');
+  });
+
+  it('data-refresh-closest triggers another pull of content from server to update closest selector content', function () {
+    var container = affix('.content-container[data-refresh-url="/refresh/"]');
+    container.affix('a[class="ajax"][data-refresh-closest=".content-container"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200NoData);
+    var refreshRequest = jasmine.Ajax.requests.mostRecent();
+    refreshRequest.respondWith(responses.messageRefresh);
+    expect($('a').length).toBe(0);
+    expect($('.content-container').length).toBe(0)
+    expect($('#refreshed-content').length).toBe(1);
+    expect($('#refreshed-content').text()).toBe('Refreshed Content');
   });
 });
