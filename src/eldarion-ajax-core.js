@@ -2,7 +2,7 @@
 
 (function (root, factory) {
   'use strict';
-
+  /* istanbul ignore next */
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && module.exports) {
@@ -42,9 +42,6 @@
         'X-Eldarion-Ajax': true
       }
     }).done(function (responseData, textStatus, jqXHR) {
-      if (!responseData) {
-        responseData = {};
-      }
       $el.trigger('eldarion-ajax:success', [$el, responseData, textStatus, jqXHR]);
     }).fail(function (jqXHR, textStatus, errorThrown) {
       $el.trigger('eldarion-ajax:error', [$el, jqXHR, textStatus, errorThrown]);
@@ -95,6 +92,7 @@
       Ajax.prototype._ajax($this, url, method, $this.serialize());
     } else {
       var data = new FormData($this[0]);
+      /* istanbul ignore else */
       if (data.get === undefined) {  // In testing it seems some things have broken FormData support
         data = $this.serialize();
       }
@@ -146,7 +144,7 @@
     $('[data-interval]').each(Ajax.prototype.interval);
   };
 
-  Ajax.prototype.remove = function () {
+  Ajax.prototype.destroy = function () {
     $('body').off('click', 'a.ajax', Ajax.prototype.click);
     $('body').off('submit', 'form.ajax', Ajax.prototype.submit);
     $('body').off('click', 'a[data-cancel-closest]', Ajax.prototype.cancel);

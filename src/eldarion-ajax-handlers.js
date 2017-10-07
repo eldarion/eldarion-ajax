@@ -2,7 +2,7 @@
 
 (function (root, factory) {
   'use strict';
-
+  /* istanbul ignore next */
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof module === 'object' && module.exports) {
@@ -105,7 +105,7 @@
     $(document).on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
   };
 
-  Handlers.prototype.remove = function () {
+  Handlers.prototype.destroy = function () {
     $(document).off('eldarion-ajax:success', Handlers.prototype.redirect);
     $(document).off('eldarion-ajax:success', Handlers.prototype.fragments);
     $(document).off('eldarion-ajax:success', '[data-replace]', Handlers.prototype.replace);

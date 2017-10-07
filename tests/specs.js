@@ -14,7 +14,7 @@ var responses = {
   message200NoData: {
     header: jsonHeader,
     status: 200,
-    responseText: ''
+    responseText: JSON.stringify({})
   },
   message400: {
     header: jsonHeader,
@@ -53,7 +53,7 @@ describe('eldarion-ajax core', function() {
 
   afterEach(function() {
     jasmine.Ajax.uninstall();
-    eldarionAjax.remove();
+    eldarionAjax.destroy();
   });
 
   it('data-timeout defaults to get method', function() {
@@ -70,7 +70,7 @@ describe('eldarion-ajax core', function() {
 
     jasmine.clock().uninstall();
 
-    eldarionAjax.remove();
+    eldarionAjax.destroy();
   });
 
   it('data-interval defaults to get method', function() {
@@ -86,7 +86,7 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('GET');
 
     jasmine.clock().uninstall();
-    eldarionAjax.remove();
+    eldarionAjax.destroy();
   });
 
   it('data-timeout with data-method as post sends POST', function() {
@@ -102,7 +102,7 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('POST');
 
     jasmine.clock().uninstall();
-    eldarionAjax.remove();
+    eldarionAjax.destroy();
   });
 
   it('data-interval with data-method as post sends POST', function() {
@@ -118,7 +118,7 @@ describe('eldarion-ajax core', function() {
     expect(request.method).toBe('POST');
 
     jasmine.clock().uninstall();
-    eldarionAjax.remove();
+    eldarionAjax.destroy();
   });
 
   it('data-method with value of POST should send a POST request', function() {
@@ -143,6 +143,14 @@ describe('eldarion-ajax core', function() {
     expect(request.url).toMatch(/\/test\/message\/$/);
     expect(request.method).toBe('GET');
     expect(request.requestBody).toBe(undefined);
+  });
+
+  it('a tag with cancel removes closet object defined by selector', function () {
+    var container = affix('.cancel-container');
+    var a = container.affix('a[data-cancel-closest=".cancel-container"]');
+    expect($('.cancel-container').length).toBe(1);
+    a.click();
+    expect($('.cancel-container').length).toBe(0);
   });
 
   it('a tag can send data by defining data-data attribute', function() {
@@ -403,8 +411,8 @@ describe('eldarion-ajax handlers', function() {
 
   afterEach(function() {
     jasmine.Ajax.uninstall();
-    eldarionAjax.remove();
-    eldarionAjaxHandlers.remove();
+    eldarionAjax.destroy();
+    eldarionAjaxHandlers.destroy();
   });
 
   it('a.click with data-replace-inner response populates div.message', function () {
@@ -424,5 +432,83 @@ describe('eldarion-ajax handlers', function() {
     var request = jasmine.Ajax.requests.mostRecent();
     request.respondWith(responses.message200);
     expect($('.message').html()).toBe('My simple contentMy simple content');
+  });
+
+  it('data-replace replacing the element at the selector', function () {
+    affix('.content-container .my-content');
+    affix('a[class="ajax"][data-replace=".my-content"]').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(0);
+    expect($('.content-container').text()).toBe('My simple content');
+  });
+
+  it('data-replace-closest replacing the element at the closest selector', function () {
+    var a = affix('.content-container .my-content a[class="ajax"][data-replace-closest=".my-content"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(0);
+    expect($('a').length).toBe(0);
+    expect($('.content-container').text()).toBe('My simple content');
+  });
+
+  it('data-replace-closest-inner replacing the inside of the element at the closest selector', function () {
+    var a = affix('.content-container .my-content a[class="ajax"][data-replace-closest-inner=".my-content"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(1);
+    expect($('a').length).toBe(0);
+    expect($('.my-content').text()).toBe('My simple content');
+  });
+
+  it('a.click with data-prepend response adds to div.message', function () {
+    var a = affix('a.prepend.ajax[data-prepend=".message"][href="/message/"]');
+    a.click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    a.click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.message').html()).toBe('My simple contentMy simple content');
+  });
+
+  it('data-clear clears the inside the element at the selector', function () {
+    var a = affix('.content-container .my-content a[class="ajax"][data-clear=".my-content"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(1);
+    expect($('a').length).toBe(0);
+    expect($('.my-content').text()).toBe('');
+  });
+
+  it('data-remove removes the element at the selector', function () {
+    var a = affix('.content-container .my-content a[class="ajax"][data-remove=".my-content"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(0);
+    expect($('a').length).toBe(0);
+  });
+
+  it('data-clear-closest clears the inside the closest element at the selector', function () {
+    var a = affix('.content-container .my-content a[class="ajax"][data-clear-closest=".my-content"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(1);
+    expect($('a').length).toBe(0);
+    expect($('.my-content').text()).toBe('');
+  });
+
+  it('data-remove-closest removes the closest element at the selector', function () {
+    var a = affix('.content-container .my-content a[class="ajax"][data-remove-closest=".my-content"]');
+    $('a').click();
+    var request = jasmine.Ajax.requests.mostRecent();
+    request.respondWith(responses.message200);
+    expect($('.my-content').length).toBe(0);
+    expect($('a').length).toBe(0);
   });
 });
