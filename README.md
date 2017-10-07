@@ -60,6 +60,17 @@ media and the include them in your HTML:
 ```
 
 
+### CommonJS
+
+You can also just include it in your own bundle.
+
+```
+npm install eldarion-ajax --save
+```
+
+```javascript
+require('eldarion-ajax');  // do this in your main bundle file and you'll be all set
+```
 
 ## Actions
 
