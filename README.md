@@ -6,10 +6,10 @@ This is a plugin that Eldarion uses for all of its AJAX work.
 [![codecov](https://codecov.io/gh/eldarion/eldarion-ajax/branch/master/graph/badge.svg)](https://codecov.io/gh/eldarion/eldarion-ajax)
 [![](https://data.jsdelivr.com/v1/package/npm/eldarion-ajax/badge)](https://www.jsdelivr.com/package/npm/eldarion-ajax)
 
-No more writing the same 20 line ```$.ajax``` blocks of Javascript over and over
+No more writing the same 20 line `$.ajax` blocks of Javascript over and over
 again for each snippet of AJAX that you want to support. Easily extend support
 on the server side code for this by adding a top-level attribute to the JSON you
-are already returning called ```"html"``` that is the rendered content. Unlike a
+are already returning called `"html"` that is the rendered content. Unlike a
 backbone.js approach to building a web app, eldarion-ajax leverages server side
 template rendering engines to render and return HTML fragments.
 
