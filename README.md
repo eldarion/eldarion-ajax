@@ -387,6 +387,12 @@ Similar to `data.fragments`. Each fragment value replaces the `.html` attribute 
 
 Similar to `data.fragments`. Each fragment value is prepended to the element(s) found in the key CSS selector
 
+### Response Data Pro Tip
+
+Both `data.html` and `data.fragments` are processed in a single response.
+This gives you the ability to replace a submitted form with `data.html` content
+while also updating multiple fragments of content on the page.
+
 ## Action Attributes
 
 The following attributes are used by eldarion-ajax when processing supported [Actions](#actions).
@@ -418,12 +424,6 @@ Specify a URL which will return HTML content for the element.
 ```html
 <div class="done-score" data-refresh-url="/users/paltman/done-score/">...</div>
 ```
-
-### Response Data Pro Tip
-
-Both `data.html` and `data.fragments` are processed in a single response.
-This gives you the ability to replace a submitted form with `data.html` content
-while also updating multiple fragments of content on the page.
 
 
 ## Handlers: A Batteries-Included Framework
