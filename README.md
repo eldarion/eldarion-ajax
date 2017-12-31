@@ -117,7 +117,7 @@ trigger the "cancel" event handler. This simply removes from the DOM any element
 found using the selector defined in the `data-cancel-closest` attribute:
 
 ```html
-<a href="#" data-cancel-closest=".edit-form" class="btn btn-secondary ajax">
+<a href="#" data-cancel-closest=".edit-form" class="btn btn-secondary">
     Cancel
 </a>
 ```
