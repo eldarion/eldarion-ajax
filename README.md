@@ -75,11 +75,11 @@ require('eldarion-ajax');  // do this in your main bundle file and you'll be all
 
 ## Actions
 
-There are currently three actions supported:
+There are three supported actions:
 
-1. `a.click`
-2. `form.submit`
-3. `a.cancel`
+1. [`a.click`](#aclick)
+2. [`form.submit`](#formsubmit)
+3. [`a.cancel`](#acancel)
 
 ### `a.click`
 
@@ -113,7 +113,7 @@ declared in the `form` tag.
 ### `a.cancel`
 
 Any `a` tag that has a `data-cancel-closest` attribute defined will
-trigger the cancel event handler. This simply removes from the DOM any elements
+trigger the "cancel" event handler. This simply removes from the DOM any elements
 found using the selector defined in the `data-cancel-closest` attribute:
 
 ```html
@@ -125,23 +125,22 @@ found using the selector defined in the `data-cancel-closest` attribute:
 
 ## Events
 
-There are three custom events that get triggered allowing you to customize the
-behavior of eldarion-ajax.
+These custom events allow you to customize eldarion-ajax behavior.
 
-1. `eldarion-ajax:begin`
-2. `eldarion-ajax:success`
-3. `eldarion-ajax:error`
-4. `eldarion-ajax:complete`
-5. `eldarion-ajax:modify-data`
+1. [`eldarion-ajax:begin`](#eldarion-ajaxbegin)
+2. [`eldarion-ajax:success`](#eldarion-ajaxsuccess)
+3. [`eldarion-ajax:error`](#eldarion-ajaxerror)
+4. [`eldarion-ajax:complete`](#eldarion-ajaxcomplete)
+5. [`eldarion-ajax:modify-data`](#eldarion-ajaxmodify-data)
 
-All events are triggered on the element that is declared to be ajax. For example,
-if you had a:
+All events are triggered on the element that is declared to be ajax. For example
+on an anchor:
 
 ```html
 <a href="/tasks/2323/delete/" class="ajax" data-method="post">
 ```
 
-link, the trigger would be fired on the `<a>` element. This, of course,
+the trigger would be fired on the `<a>` element. This event, of course,
 bubbles up, but allows you to easily listen only for events on particular tags.
 
 Every event also sends as its first parameter, the element itself, in case you
@@ -211,12 +210,228 @@ change the data at all, you must return new data from the function handling the
 event. Otherwise, the original data will be used.
 
 
-## Handlers: A Framework
+## Responses
 
-The events provided above allow you to roll your own handlers in such a way to
-really customize how you want your application to respond to server responses. A
-lot have been provided (see the section below), but here is a quick primer on
-writing your own.
+There are three data attributes looked for in the response JSON.
+
+1. [`location`](#datalocation) - URL used for immediate redirection
+2. [`html`](#datahtml) - content used when processing `html` Directives
+3. [`fragments`](#datafragments) - additional content for the DOM
+
+### `data.location`
+
+If `location` is found in the response JSON payload, it is expected to be a URL
+and the browser is immediately redirected to that location. No additional HTML
+processing is performed.
+
+### `data.html`
+
+The `data.html` response element is typically used for insertion or replacement
+of existing DOM element content. Exactly how `data.html` is used depends on one
+or more processing directives.
+
+Processing directives are defined by attributes added to the event-handling `class="ajax"` element.
+They are linked to handlers as described in [Handlers: A Batteries-Included Framework](#handlers-a-batteries-included-framework).
+
+Each processing directive is assigned a CSS selector. Since a CSS selector
+can be written to address multiple different blocks on the page at the same time,
+large segments of the DOM can be modified with each directive.
+
+All processing directives are executed for each event and any number of directives may be combined.
+
+### Processing Directives
+ 
+#### data-append
+
+Append response JSON `data.html` to the element(s) found in the specified CSS selector.
+
+```html
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-append=".done-list">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+#### data-clear
+
+Clear the `.html` attribute of each DOM element found in the specified CSS selector.
+
+```html
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-clear=".done-status">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+#### data-clear-closest
+
+Invoke `data-clear` functionality using jQuery's `closest` method to interpret the selector.
+
+#### data-prepend
+
+Prepend response JSON `data.html` to the element(s) found in the specified CSS selector.
+
+```html
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-prepend=".done-list">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+#### data-refresh
+
+Define which elements get **_refreshed_**.
+Matching elements are refreshed with the contents of the url defined in their `data-refresh-url`
+attribute.
+
+```html
+<div class="done-score" data-refresh-url="/users/paltman/done-score/">...</div>
+
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-refresh=".done-score">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+In this example, `.done-score` will fetch (GET) JSON from the url defined
+by `data-refresh-url`, then replace itself with the contents of response JSON `data.html`.
+
+#### data-refresh-closest
+
+Invoke `data-refresh` functionality using jQuery's `closest` method to interpret the selector.
+
+#### data-remove
+
+Remove DOM elements found in the specified CSS selector.
+
+```html
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-remove=".done-status">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+#### data-remove-closest
+
+Invoke `data-remove` functionality using jQuery's `closest` method to interpret the selector.
+
+#### data-replace
+
+Replace the element(s) found in the specified CSS selector with response JSON `data.html`.
+
+```html
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-replace=".done-status">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+#### data-replace-closest
+
+Invoke `data-replace` functionality using jQuery's `closest` method to interpret the selector.
+
+#### data-replace-closest-inner
+
+Invoke `data-replace-inner` functionality using jQuery's `closest` method to interpret the selector.
+
+#### data-replace-inner
+
+Similar to `data-replace` functionality, but replaces the element(s) `.html` attribute.
+
+### A Complex `data.html` Processing Directive Example
+
+This example shows combined use of `data-append`, `data-refresh`, and `data-remove` attributes
+as `data.html` processing directives.
+
+```html
+<div class="done-score" data-refresh-url="/users/paltman/done-score/">...</div>
+
+<div class="done-list">...</div>
+
+<div class="results"></div>
+
+<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
+                                                          data-append=".done-list"
+                                                          data-refresh=".done-score"
+                                                          data-remove=".results">
+    <i class="fa fa-fw fa-check"></i>
+    Done
+</a>
+```
+
+It is rare to use many processing directives combined like this. Usually just one or two
+suffice.
+
+### `data.fragments`
+
+Response JSON `data.fragments` should contain a list of key/value
+pairs where keys are the selectors to content that will be replaced, and
+values are the server-side rendered HTML content replacing elements
+that match the selection.
+
+#### `data.append-fragments`
+
+Similar to `data.fragments`. Each fragment value is appended to the element(s) found in the key CSS selector.
+
+#### `data.inner-fragments`
+
+Similar to `data.fragments`. Each fragment value replaces the `.html` attribute for the element(s) found in the key CSS selector.
+
+#### `data.prepend-fragments`
+
+Similar to `data.fragments`. Each fragment value is prepended to the element(s) found in the key CSS selector
+
+### Response Data Pro Tip
+
+Both `data.html` and `data.fragments` are processed in a single response.
+This gives you the ability to replace a submitted form with `data.html` content
+while also updating multiple fragments of content on the page.
+
+## Action Attributes
+
+The following attributes are used by eldarion-ajax when processing supported [Actions](#actions).
+
+#### data-cancel-closest
+
+Used on an `<a>` anchor tag, triggers the `cancel` event handler, which removes
+from the DOM any elements found in the specified CSS selector.
+
+```html
+<a href="#" data-cancel-closest=".edit-form" class="btn btn-secondary ajax">
+    Cancel
+</a>
+```
+
+#### data-method
+
+Defines the request method, i.e. "POST". If this attribute is not provided,
+the request method defaults to "GET".
+
+```html
+<a href="/tasks/2323/delete/" class="ajax" data-method="post">
+```
+
+#### data-refresh-url
+
+Specify a URL which will return HTML content for the element.
+
+```html
+<div class="done-score" data-refresh-url="/users/paltman/done-score/">...</div>
+```
+
+
+## Handlers: A Batteries-Included Framework
+
+The eldarion-ajax [events](#events) allow you to code handlers which
+customize actions for server responses. Many handlers are included
+(see [Processing Directives](#processing-directives)),
+but here is a quick primer for writing your own.
 
 ```javascript
 $(function ($) {
@@ -233,139 +448,8 @@ $(function ($) {
 ```
 
 This gives you a lot of flexibility. For example, if you don't like how the
-batteries included approach treats server response data, you can drop the
-inclusion of `eldarion-ajax-handlers.js` and roll your own.
-
-
-## Handlers: Batteries Included
-
-There are three data attributes looked for in the response JSON data:
-
-1. `location`
-2. `html`
-3. `fragments`
-
-If `location` is found in the response JSON payload, it is expected to be a URL
-and the browser will be immediately redirected to that location. If, on the other hand
-it is not present, then the processing rules below will be processed based on
-what attributes are defined.
-
-If you have a `fragments` hash defined, it should contain a list of key/value
-pairs where the keys are the selectors to content that will be replaced, and the
-values are the server-side rendered HTML content that will replace the elements
-that match the selection.
-
-You can define both `html` to be processed by the declaritive rules defined
-below and the `fragements` at the same time. This gives you the ability to
-for example replace the form you submited with `html` content while at the
-same time updating multiple bits of content on the page without having to
-refresh them.
-
-There are five different ways that you can declare an `html` response
-without a `location` directive be processed:
-
-1. Append
-2. Prepend
-3. Refresh
-4. Refresh Closest
-5. Replace
-6. Replace Closest
-
-Here is where it can get fun as all of the values for these processing directives are
-just CSS selectors. In addition they can be multiplexed. You can declare all of them
-at the same time if you so desire. A CSS selector can easily be written to address
-multiple different blocks on the page at the same time.
-
-Best to just see some examples.
-
-### Append
-
-Using `data-append` allows you to specify that the `data.html` returned in the
-server response's JSON be appended to the elements found in the specified CSS
-selector:
-
-```html
-<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
-                                                          data-append=".done-list">
-    <i class="fa fa-fw fa-check"></i>
-    Done
-</a>
-```
-
-### Prepend
-
-Using `data-prepend` allows you to specify that the `data.html` returned in the
-server response's JSON be prepended to the elements found in the specified CSS
-selector:
-
-```html
-<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
-                                                          data-append=".done-list">
-    <i class="fa fa-fw fa-check"></i>
-    Done
-</a>
-```
-
-### Refresh
-
-Using the `data-refresh` attribute lets you define what elements, if selected by the
-CSS selector specified for its value, get **_refreshed_**. Elements that are selected will
-get refreshed with the contents of the url defined in their `data-refresh-url`
-attribute:
-
-```html
-<div class="done-score" data-refresh-url="/users/paltman/done-score/">...</div>
-
-<div class="done-list">...</div>
-
-<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
-                                                          data-append=".done-list"
-                                                          data-refresh=".done-score">
-    <i class="fa fa-fw fa-check"></i>
-    Done
-</a>
-```
-
-In this example, the `.done-list` will be appended to with the `data.html` returns from
-the AJAX post made as a result of clicking the button and simultaneously, the `.done-score`
-will refresh itself by fetching (GET) JSON from the url defined in `data-refresh-url` and
-replacing itself with the contents of `data.html` that is returned.
-
-### Refresh Closest
-
-This works very much in the same way as `data-refresh` however, the uses jQuery's `closest`
-method to interpret the selector.
-
-### Replace
-
-Sometimes you want to neither refresh nor append to existing elements but you want to just replace
-the content with whatever it is that is returned from the server. This is what `data-replace`
-is for.
-
-### Replace Closest
-
-This works very much in the same way as `data-replace` however, the uses jQuery's `closest`
-method to interpret the selector.
-
-```html
-<div class="done-score" data-refresh-url="/users/paltman/done-score/">...</div>
-
-<div class="done-list">...</div>
-
-<div class="results"></div>
-
-<a href="/tasks/12342/done/" class="btn btn-primary ajax" data-method="post"
-                                                          data-append=".done-list"
-                                                          data-refresh=".done-score"
-                                                          data-replace=".results">
-    <i class="fa fa-fw fa-check"></i>
-    Done
-</a>
-```
-
-It is rare that you'll add/use all of these processing methods combined like this. Usually it will
-just be one or the other, however, I add them all here to illustrate the point that they are
-independently interpreted and executed.
+batteries included approach treats server response data, you can drop
+inclusion of `eldarion-ajax-handlers.js` and write your own handlers.
 
 
 ## Commercial Support
