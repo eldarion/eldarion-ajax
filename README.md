@@ -77,9 +77,9 @@ require('eldarion-ajax');  // do this in your main bundle file and you'll be all
 
 There are three supported actions:
 
-1. `a.click`
-2. `form.submit`
-3. `a.cancel`
+1. [`a.click`](#a.click)
+2. [`form.submit`](#form.submit)
+3. [`a.cancel`](#a.cancel)
 
 ### `a.click`
 
@@ -214,9 +214,9 @@ event. Otherwise, the original data will be used.
 
 There are three data attributes looked for in the response JSON.
 
-1. [`location`](#data-location) - URL used for immediate redirection
-2. [`html`](#data-html) - content used when processing `html` Directives
-3. [`fragments`](#data-fragments) - additional content for the DOM
+1. [`location`](#data.location) - URL used for immediate redirection
+2. [`html`](#data.html) - content used when processing `html` Directives
+3. [`fragments`](#data.fragments) - additional content for the DOM
 
 ### `data.location`
 
