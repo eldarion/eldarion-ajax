@@ -391,7 +391,7 @@ Similar to `data.fragments`. Each fragment value is prepended to the element(s) 
 
 The following attributes are used by eldarion-ajax when processing supported [Actions](#actions).
 
-##### data-cancel-closest
+#### data-cancel-closest
 
 Used on an `<a>` anchor tag, triggers the `cancel` event handler, which removes
 from the DOM any elements found in the specified CSS selector.
@@ -402,7 +402,7 @@ from the DOM any elements found in the specified CSS selector.
 </a>
 ```
 
-##### data-method
+#### data-method
 
 Defines the request method, i.e. "GET" or "POST".
 
@@ -410,7 +410,7 @@ Defines the request method, i.e. "GET" or "POST".
 <a href="/tasks/2323/delete/" class="ajax" data-method="post">
 ```
 
-##### data-refresh-url
+#### data-refresh-url
 
 Specify a URL which will return HTML content for the element.
 
