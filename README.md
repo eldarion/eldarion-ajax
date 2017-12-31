@@ -210,7 +210,7 @@ change the data at all, you must return new data from the function handling the
 event. Otherwise, the original data will be used.
 
 
-## Response Handling
+## Responses
 
 There are three data attributes looked for in the response JSON.
 
@@ -230,8 +230,6 @@ The `data.html` response element is typically used for insertion or replacement
 of existing DOM element content. Exactly how `data.html` is used depends on one
 or more processing directives.
 
-#### `data.html` Processing Directives
-
 Processing directives are defined by attributes added to the event-handling `class="ajax"` element.
 They are linked to handlers as described in [Handlers: A Framework](#handlers-a-framework).
 
@@ -240,8 +238,10 @@ can be written to address multiple different blocks on the page at the same time
 large segments of the DOM can be modified with each directive.
 
 All processing directives are executed for each event and any number of directives may be combined.
+
+### Processing Directives
  
-##### data-append
+#### data-append
 
 Append response JSON `data.html` to the element(s) found in the specified CSS selector.
 
@@ -253,7 +253,7 @@ Append response JSON `data.html` to the element(s) found in the specified CSS se
 </a>
 ```
 
-##### data-clear
+#### data-clear
 
 Clear the `.html` attribute of each DOM element found in the specified CSS selector.
 
@@ -265,11 +265,11 @@ Clear the `.html` attribute of each DOM element found in the specified CSS selec
 </a>
 ```
 
-##### data-clear-closest
+#### data-clear-closest
 
 Invoke `data-clear` functionality using jQuery's `closest` method to interpret the selector.
 
-##### data-prepend
+#### data-prepend
 
 Prepend response JSON `data.html` to the element(s) found in the specified CSS selector.
 
@@ -281,7 +281,7 @@ Prepend response JSON `data.html` to the element(s) found in the specified CSS s
 </a>
 ```
 
-##### data-refresh
+#### data-refresh
 
 Define which elements get **_refreshed_**.
 Matching elements are refreshed with the contents of the url defined in their `data-refresh-url`
@@ -300,11 +300,11 @@ attribute.
 In this example, `.done-score` will fetch (GET) JSON from the url defined
 by `data-refresh-url`, then replace itself with the contents of response JSON `data.html`.
 
-##### data-refresh-closest
+#### data-refresh-closest
 
 Invoke `data-refresh` functionality using jQuery's `closest` method to interpret the selector.
 
-##### data-remove
+#### data-remove
 
 Remove DOM elements found in the specified CSS selector.
 
@@ -316,11 +316,11 @@ Remove DOM elements found in the specified CSS selector.
 </a>
 ```
 
-##### data-remove-closest
+#### data-remove-closest
 
 Invoke `data-remove` functionality using jQuery's `closest` method to interpret the selector.
 
-##### data-replace
+#### data-replace
 
 Replace the element(s) found in the specified CSS selector with response JSON `data.html`.
 
@@ -332,19 +332,19 @@ Replace the element(s) found in the specified CSS selector with response JSON `d
 </a>
 ```
 
-##### data-replace-closest
+#### data-replace-closest
 
 Invoke `data-replace` functionality using jQuery's `closest` method to interpret the selector.
 
-##### data-replace-closest-inner
+#### data-replace-closest-inner
 
 Invoke `data-replace-inner` functionality using jQuery's `closest` method to interpret the selector.
 
-##### data-replace-inner
+#### data-replace-inner
 
 Similar to `data-replace` functionality, but replaces the element(s) `.html` attribute.
 
-#### A Complex `data.html` Processing Directive Example
+### A Complex `data.html` Processing Directive Example
 
 This example shows combined use of `data-append`, `data-refresh`, and `data-remove` attributes
 as `data.html` processing directives.
@@ -425,11 +425,11 @@ This gives you the ability to replace a submitted form with `data.html` content
 while also updating multiple fragments of content on the page.
 
 
-## Handlers: A Framework
+## Handlers: A Batteries Included Framework
 
 The eldarion-ajax [events](#events) allow you to code handlers which
 customize actions for server responses. Many handlers are included
-(see [`html` Processing Directives](#html-processing-directives)),
+(see [Processing Directives](#processing-directives)),
 but here is a quick primer for writing your own.
 
 ```javascript
