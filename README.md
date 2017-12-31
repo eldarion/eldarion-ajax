@@ -404,7 +404,8 @@ from the DOM any elements found in the specified CSS selector.
 
 #### data-method
 
-Defines the request method, i.e. "GET" or "POST".
+Defines the request method, i.e. "POST". If this attribute is not provided,
+the request method defaults to "GET".
 
 ```html
 <a href="/tasks/2323/delete/" class="ajax" data-method="post">
