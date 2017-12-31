@@ -77,9 +77,9 @@ require('eldarion-ajax');  // do this in your main bundle file and you'll be all
 
 There are three supported actions:
 
-1. [`a.click`](#a.click)
-2. [`form.submit`](#form.submit)
-3. [`a.cancel`](#a.cancel)
+1. [`a.click`](#aclick)
+2. [`form.submit`](#formsubmit)
+3. [`a.cancel`](#acancel)
 
 ### `a.click`
 
@@ -127,11 +127,11 @@ found using the selector defined in the `data-cancel-closest` attribute:
 
 These custom events allow you to customize eldarion-ajax behavior.
 
-1. `eldarion-ajax:begin`
-2. `eldarion-ajax:success`
-3. `eldarion-ajax:error`
-4. `eldarion-ajax:complete`
-5. `eldarion-ajax:modify-data`
+1. [`eldarion-ajax:begin`](#eldarion-ajaxbegin)
+2. [`eldarion-ajax:success`](#eldarion-ajaxsuccess)
+3. [`eldarion-ajax:error`](#eldarion-ajaxerror)
+4. [`eldarion-ajax:complete`](#eldarion-ajaxcomplete)
+5. [`eldarion-ajax:modify-data`](#eldarion-ajaxmodify-data)
 
 All events are triggered on the element that is declared to be ajax. For example
 on an anchor:
@@ -214,9 +214,9 @@ event. Otherwise, the original data will be used.
 
 There are three data attributes looked for in the response JSON.
 
-1. [`location`](#data.location) - URL used for immediate redirection
-2. [`html`](#data.html) - content used when processing `html` Directives
-3. [`fragments`](#data.fragments) - additional content for the DOM
+1. [`location`](#datalocation) - URL used for immediate redirection
+2. [`html`](#datahtml) - content used when processing `html` Directives
+3. [`fragments`](#datafragments) - additional content for the DOM
 
 ### `data.location`
 
@@ -231,7 +231,7 @@ of existing DOM element content. Exactly how `data.html` is used depends on one
 or more processing directives.
 
 Processing directives are defined by attributes added to the event-handling `class="ajax"` element.
-They are linked to handlers as described in [Handlers: A Framework](#handlers-a-framework).
+They are linked to handlers as described in [Handlers: A Batteries-Included Framework](#handlers-a-batteries-included-framework).
 
 Each processing directive is assigned a CSS selector. Since a CSS selector
 can be written to address multiple different blocks on the page at the same time,
@@ -425,7 +425,7 @@ This gives you the ability to replace a submitted form with `data.html` content
 while also updating multiple fragments of content on the page.
 
 
-## Handlers: A Batteries Included Framework
+## Handlers: A Batteries-Included Framework
 
 The eldarion-ajax [events](#events) allow you to code handlers which
 customize actions for server responses. Many handlers are included
